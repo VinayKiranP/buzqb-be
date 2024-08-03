@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: buzqb-be
+  profiles:
+    active: dev #change this to dev when working in local
