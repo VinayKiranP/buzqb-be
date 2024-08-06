@@ -1,7 +1,5 @@
 http://localhost:8080/swagger-ui/index.html
 
-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
-
 Business
 
 {
