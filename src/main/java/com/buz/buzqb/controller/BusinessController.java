@@ -34,7 +34,7 @@ public class BusinessController {
             response.setSuccess(true);
         } catch (Exception e) {
             httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            response.setError(ErrorDto.getErrorFromException(e));
+            response.setErrors(ErrorDto.getErrorFromException(e));
             response.setSuccess(false);
             LOGGER.error("error in Getting Business getAllBusiness error:{}, exception:{}", httpStatusCode, ErrorDto.getErrorFromException(e));
         }
@@ -51,7 +51,7 @@ public class BusinessController {
             response.setSuccess(true);
         } catch (Exception e) {
             httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            response.setError(ErrorDto.getErrorFromException(e));
+            response.setErrors(ErrorDto.getErrorFromException(e));
             response.setSuccess(false);
             LOGGER.error("error in Getting Business getBusinessById error:{}, exception:{}", httpStatusCode, ErrorDto.getErrorFromException(e));
         }
@@ -68,7 +68,7 @@ public class BusinessController {
             response.setSuccess(true);
         } catch (Exception e) {
             httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            response.setError(ErrorDto.getErrorFromException(e));
+            response.setErrors(ErrorDto.getErrorFromException(e));
             response.setSuccess(false);
             LOGGER.error("error in Getting Business addBusiness error:{}, exception:{}", httpStatusCode, ErrorDto.getErrorFromException(e));
         }
@@ -93,7 +93,7 @@ public class BusinessController {
             }
         } catch (Exception e) {
             httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            response.setError(ErrorDto.getErrorFromException(e));
+            response.setErrors(ErrorDto.getErrorFromException(e));
             response.setSuccess(false);
             LOGGER.error("error in Getting Business updateBusiness error:{}, exception:{}", httpStatusCode, ErrorDto.getErrorFromException(e));
         }
@@ -119,7 +119,7 @@ public class BusinessController {
             }
         } catch (Exception e) {
             httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            response.setError(ErrorDto.getErrorFromException(e));
+            response.setErrors(ErrorDto.getErrorFromException(e));
             response.setSuccess(false);
             LOGGER.error("error in Getting Business deleteBusiness error:{}, exception:{}", httpStatusCode, ErrorDto.getErrorFromException(e));
         }

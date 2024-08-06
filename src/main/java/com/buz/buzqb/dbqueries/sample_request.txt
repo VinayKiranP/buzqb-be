@@ -1,5 +1,7 @@
 http://localhost:8080/swagger-ui/index.html
 
+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
+
 Business
 
 {
@@ -12,8 +14,8 @@ Business
   "addressLine2": "vinay@buzqb.com",
   "landmark": "Bengaluru",
   "city": "Bengaluru",
-  "stateId": "1",
-  "countryId": "1",
+  "stateId": 1,
+  "countryId": 1,
   "pincode":"577522",
   "status":"active"
 }
