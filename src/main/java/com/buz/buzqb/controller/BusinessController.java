@@ -4,7 +4,7 @@ import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
 import com.buz.buzqb.dto.BusinessRequest;
-import com.buz.buzqb.model.Business;
+import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.service.BusinessService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(Constants.V1_URI + Constants.BUSINESS_URI)
 public class BusinessController {

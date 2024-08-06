@@ -1,0 +1,19 @@
+http://localhost:8080/swagger-ui/index.html
+
+Business
+
+{
+  "name":"vk08",
+  "mobile": "8880000088",
+  "email": "vinay@buzqb.com",
+  "username": "vinay@buzqb.com",
+  "password": "vinay@buzqb.com",
+  "addressLine1": "vinay@buzqb.com",
+  "addressLine2": "vinay@buzqb.com",
+  "landmark": "Bengaluru",
+  "city": "Bengaluru",
+  "stateId": "1",
+  "countryId": "1",
+  "pincode":"577522",
+  "status":"active"
+}

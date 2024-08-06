@@ -1,7 +1,7 @@
 package com.buz.buzqb.service;
 
 import com.buz.buzqb.dto.BusinessRequest;
-import com.buz.buzqb.model.Business;
+import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.repository.BusinessRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
