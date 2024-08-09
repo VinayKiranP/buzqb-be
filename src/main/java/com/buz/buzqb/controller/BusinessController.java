@@ -15,114 +15,120 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping(Constants.V1_URI + Constants.BUSINESS_URI)
 public class BusinessController {
-    @Autowired
-    private BusinessService businessService;
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(BusinessController.class.getName());
+  @Autowired
+  private BusinessService businessService;
 
-    @GetMapping
-    public ResponseEntity<ResponseDto> getAllBusiness() {
-        ResponseDto response = new ResponseDto();
-        HttpStatus httpStatusCode = HttpStatus.OK;
+  public static final Logger LOGGER = LoggerFactory.getLogger(BusinessController.class.getName());
 
-        try {
-            response.setData(businessService.getAllBusiness());
-            response.setSuccess(true);
-        } catch (Exception e) {
-            httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            response.setErrors(ErrorDto.getErrorFromException(e));
-            response.setSuccess(false);
-            LOGGER.error("error in Getting Business getAllBusiness error:{}, exception:{}", httpStatusCode, ErrorDto.getErrorFromException(e));
-        }
-        return new ResponseEntity<>(response, httpStatusCode);
+  @GetMapping
+  public ResponseEntity<ResponseDto> getAllBusiness() {
+    ResponseDto response = new ResponseDto();
+    HttpStatus httpStatusCode = HttpStatus.OK;
+
+    try {
+      response.setData(businessService.getAllBusiness());
+      response.setSuccess(true);
+    } catch (Exception e) {
+      httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+      response.setErrors(ErrorDto.getErrorFromException(e));
+      response.setSuccess(false);
+      LOGGER.error("error in Getting Business getAllBusiness error:{}, exception:{}",
+          httpStatusCode, ErrorDto.getErrorFromException(e));
     }
+    return new ResponseEntity<>(response, httpStatusCode);
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseDto> getBusinessById(@PathVariable Integer id) throws Exception {
-        ResponseDto response = new ResponseDto();
-        HttpStatus httpStatusCode = HttpStatus.OK;
+  @GetMapping("/{id}")
+  public ResponseEntity<ResponseDto> getBusinessById(@PathVariable Integer id) throws Exception {
+    ResponseDto response = new ResponseDto();
+    HttpStatus httpStatusCode = HttpStatus.OK;
 
-        try {
-            response.setData(businessService.getBusinessById(id));
-            response.setSuccess(true);
-        } catch (Exception e) {
-            httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            response.setErrors(ErrorDto.getErrorFromException(e));
-            response.setSuccess(false);
-            LOGGER.error("error in Getting Business getBusinessById error:{}, exception:{}", httpStatusCode, ErrorDto.getErrorFromException(e));
-        }
-        return new ResponseEntity<>(response, httpStatusCode);
+    try {
+      response.setData(businessService.getBusinessById(id));
+      response.setSuccess(true);
+    } catch (Exception e) {
+      httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+      response.setErrors(ErrorDto.getErrorFromException(e));
+      response.setSuccess(false);
+      LOGGER.error("error in Getting Business getBusinessById error:{}, exception:{}",
+          httpStatusCode, ErrorDto.getErrorFromException(e));
     }
+    return new ResponseEntity<>(response, httpStatusCode);
+  }
 
-    @PostMapping
-    public ResponseEntity<ResponseDto> addBusiness(@RequestBody BusinessRequest businessRequest) {
-        ResponseDto response = new ResponseDto();
-        HttpStatus httpStatusCode = HttpStatus.OK;
+  @PostMapping
+  public ResponseEntity<ResponseDto> addBusiness(@RequestBody BusinessRequest businessRequest) {
+    ResponseDto response = new ResponseDto();
+    HttpStatus httpStatusCode = HttpStatus.OK;
 
-        try {
-            response.setData(businessService.saveBusiness(businessRequest));
-            response.setSuccess(true);
-        } catch (Exception e) {
-            httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            response.setErrors(ErrorDto.getErrorFromException(e));
-            response.setSuccess(false);
-            LOGGER.error("error in Getting Business addBusiness error:{}, exception:{}", httpStatusCode, ErrorDto.getErrorFromException(e));
-        }
-        return new ResponseEntity<>(response, httpStatusCode);
+    try {
+      response.setData(businessService.saveBusiness(businessRequest));
+      response.setSuccess(true);
+    } catch (Exception e) {
+      httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+      response.setErrors(ErrorDto.getErrorFromException(e));
+      response.setSuccess(false);
+      LOGGER.error("error in Getting Business addBusiness error:{}, exception:{}", httpStatusCode,
+          ErrorDto.getErrorFromException(e));
     }
+    return new ResponseEntity<>(response, httpStatusCode);
+  }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ResponseDto> updateBusiness(@PathVariable Integer id, @RequestBody BusinessRequest businessRequest) {
-        ResponseDto response = new ResponseDto();
-        HttpStatus httpStatusCode = HttpStatus.OK;
+  @PutMapping("/{id}")
+  public ResponseEntity<ResponseDto> updateBusiness(@PathVariable Integer id,
+      @RequestBody BusinessRequest businessRequest) {
+    ResponseDto response = new ResponseDto();
+    HttpStatus httpStatusCode = HttpStatus.OK;
 
-        try {
-            Optional<Business> business = businessService.getBusinessById(id);
-            if (business.isPresent()) {
-                Business updatedBusiness = businessRequest.requestToBusiness(businessRequest);
-                updatedBusiness.setId(id);
-                response.setData(businessService.updateBusiness(updatedBusiness));
-                response.setSuccess(true);
-            } else {
-                httpStatusCode = HttpStatus.NO_CONTENT;
-                response.setData(business);
-            }
-        } catch (Exception e) {
-            httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            response.setErrors(ErrorDto.getErrorFromException(e));
-            response.setSuccess(false);
-            LOGGER.error("error in Getting Business updateBusiness error:{}, exception:{}", httpStatusCode, ErrorDto.getErrorFromException(e));
-        }
-        return new ResponseEntity<>(response, httpStatusCode);
+    try {
+      Optional<Business> business = businessService.getBusinessById(id);
+      if (business.isPresent()) {
+        Business updatedBusiness = businessRequest.requestToBusiness(businessRequest);
+        updatedBusiness.setId(id);
+        response.setData(businessService.updateBusiness(updatedBusiness));
+        response.setSuccess(true);
+      } else {
+        httpStatusCode = HttpStatus.NO_CONTENT;
+        response.setData(business);
+      }
+    } catch (Exception e) {
+      httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+      response.setErrors(ErrorDto.getErrorFromException(e));
+      response.setSuccess(false);
+      LOGGER.error("error in Getting Business updateBusiness error:{}, exception:{}",
+          httpStatusCode, ErrorDto.getErrorFromException(e));
     }
+    return new ResponseEntity<>(response, httpStatusCode);
+  }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<ResponseDto> patchBusiness(@PathVariable Integer id, @RequestBody BusinessRequest businessRequest) {
-        ResponseDto response = new ResponseDto();
-        HttpStatus httpStatusCode = HttpStatus.OK;
+  @DeleteMapping("/{id}")
+  public ResponseEntity<ResponseDto> patchBusiness(@PathVariable Integer id) {
+    ResponseDto response = new ResponseDto();
+    HttpStatus httpStatusCode = HttpStatus.OK;
 
-        try {
-            Optional<Business> business = businessService.getBusinessById(id);
-            if (business.isPresent()) {
-                Business updatedBusiness = businessRequest.requestToBusiness(businessRequest);
-                updatedBusiness.setId(id);
-                updatedBusiness.setStatus("deleted");
-                response.setData(businessService.deleteBusiness(updatedBusiness));
-                response.setSuccess(true);
-            } else {
-                httpStatusCode = HttpStatus.NO_CONTENT;
-                response.setData(business);
-            }
-        } catch (Exception e) {
-            httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            response.setErrors(ErrorDto.getErrorFromException(e));
-            response.setSuccess(false);
-            LOGGER.error("error in Getting Business deleteBusiness error:{}, exception:{}", httpStatusCode, ErrorDto.getErrorFromException(e));
-        }
-        return new ResponseEntity<>(response, httpStatusCode);
+    try {
+      Optional<Business> business = businessService.getBusinessById(id);
+      if (business.isPresent()) {
+        Business updatedBusiness = business.get();
+        updatedBusiness.setId(id);
+        updatedBusiness.setStatus("deleted");
+        response.setData(businessService.deleteBusiness(updatedBusiness));
+        response.setSuccess(true);
+      } else {
+        httpStatusCode = HttpStatus.NO_CONTENT;
+        response.setData(business);
+      }
+    } catch (Exception e) {
+      httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+      response.setErrors(ErrorDto.getErrorFromException(e));
+      response.setSuccess(false);
+      LOGGER.error("error in Getting Business deleteBusiness error:{}, exception:{}",
+          httpStatusCode, ErrorDto.getErrorFromException(e));
     }
+    return new ResponseEntity<>(response, httpStatusCode);
+  }
 }
