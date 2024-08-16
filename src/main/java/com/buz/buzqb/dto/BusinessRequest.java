@@ -1,10 +1,9 @@
 package com.buz.buzqb.dto;
 
 import com.buz.buzqb.entity.Business;
-
-import lombok.*;
-import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 @Data
 public class BusinessRequest {
@@ -14,10 +13,10 @@ public class BusinessRequest {
     @NotNull
     @Size(max = 10, message = "mobile can't exceed 250 characters")
     private String mobile;
-    @NonNull
+    @NotNull
     @Size(max = 250, message = "username can't exceed 250 characters")
     private String email;
-    @NonNull
+    @NotNull
     @Size(max = 250, message = "username can't exceed 250 characters")
     private String username;
     @Size(min = 8, max = 124, message = "password should be between 8-124 characters")
