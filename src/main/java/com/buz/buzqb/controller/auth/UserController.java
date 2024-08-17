@@ -1,10 +1,12 @@
 package com.buz.buzqb.controller.auth;
 
 import com.buz.buzqb.common.Constants;
+import com.buz.buzqb.dto.auth.AuthenticatedUser;
 import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.service.BusinessService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import java.util.List;
 @RequestMapping(Constants.USERS_URI)
 @RestController
 public class UserController {
+
   private final BusinessService businessService;
 
   public UserController(BusinessService businessService) {
@@ -28,9 +31,9 @@ public class UserController {
     return ResponseEntity.ok(currentUser);
   }
 
-  @GetMapping("/")
+  @GetMapping
   public ResponseEntity<List<Business>> allBusiness() {
-    List <Business> users = businessService.getAllBusiness();
+    List<Business> users = businessService.getAllBusiness();
 
     return ResponseEntity.ok(users);
   }

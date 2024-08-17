@@ -18,6 +18,7 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+
   private final AuthenticationProvider authenticationProvider;
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -34,7 +35,8 @@ public class SecurityConfiguration {
     http.csrf()
         .disable()
         .authorizeHttpRequests()
-        .requestMatchers("/auth/**")
+        .requestMatchers("/auth/**", "/info", "/swagger-ui/**", "/health", "actuator/**",
+            "/swagger-ui.html", "/v3/api-docs/**")
         .permitAll()
         .anyRequest()
         .authenticated()
@@ -53,12 +55,12 @@ public class SecurityConfiguration {
     CorsConfiguration configuration = new CorsConfiguration();
 
     configuration.setAllowedOrigins(List.of("http://localhost:8005"));
-    configuration.setAllowedMethods(List.of("GET","POST"));
-    configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
+    configuration.setAllowedMethods(List.of("GET", "POST"));
+    configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-    source.registerCorsConfiguration("/**",configuration);
+    source.registerCorsConfiguration("/**", configuration);
 
     return source;
   }
