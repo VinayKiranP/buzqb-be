@@ -8,25 +8,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class RoleService {
-    @Autowired
-    private RoleRepo roleRepo;
+public interface RoleService {
 
-    public List<Role> getAllRole() {
-        return roleRepo.findAll();
-    }
+  List<Role> getAllRole();
 
-    public Optional<Role> getRoleById(Integer id){
-        return roleRepo.findById(id);
-    }
+  Optional<Role> getRoleById(Integer id);
 
-    public Role saveRole(RoleRequest roleRequest){
-        Role role = roleRequest.requestToRole(roleRequest);
-        return roleRepo.save(role);
-    }
+  Role saveRole(RoleRequest roleRequest);
 
-    public Role updateRole(Role role){
-        return roleRepo.save(role);
-    }
+  Role updateRole(Role role);
 }
