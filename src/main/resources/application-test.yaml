@@ -1,17 +1,20 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test;MODE=MySQL;
-    password: ''
-    username: ''
+    url: jdbc:h2:mem:BUZQB;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS BUZQB;MODE=MySQL;
+    password: sa
+    username: password
   h2:
     console:
       enabled: true
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update
+      current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+      default_schema: buzqb
+      ddl-auto: create-drop
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
