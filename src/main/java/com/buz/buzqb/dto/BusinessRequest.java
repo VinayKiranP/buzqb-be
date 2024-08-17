@@ -16,9 +16,6 @@ public class BusinessRequest {
     @NotNull
     @Size(max = 250, message = "username can't exceed 250 characters")
     private String email;
-    @NotNull
-    @Size(max = 250, message = "username can't exceed 250 characters")
-    private String username;
     @Size(min = 8, max = 124, message = "password should be between 8-124 characters")
     private String password;
     private String addressLine1;
@@ -36,8 +33,7 @@ public class BusinessRequest {
         business.setName(businessRequest.getName());
         business.setMobile(businessRequest.getMobile());
         business.setEmail(businessRequest.getEmail());
-        business.setUsername(businessRequest.getUsername());
-        business.setPassword(businessRequest.getPassword());
+//        business.setPassword(businessRequest.getPassword());
         business.setAddressLine1(businessRequest.getAddressLine1());
         business.setAddressLine2(businessRequest.getAddressLine2());
         business.setLandmark(businessRequest.getLandmark());

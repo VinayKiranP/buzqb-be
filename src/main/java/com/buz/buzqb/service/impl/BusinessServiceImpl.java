@@ -40,4 +40,8 @@ public class BusinessServiceImpl implements BusinessService {
     return businessRepo.save(business);
   }
 
+  @Override
+  public Optional<Business> getBusinessByEmail(String email){
+    return businessRepo.findByEmail(email);
+  }
 }

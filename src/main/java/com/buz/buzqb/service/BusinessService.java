@@ -16,4 +16,6 @@ public interface BusinessService {
     Business updateBusiness(Business business);
 
     Business deleteBusiness(Business business);
+
+    Optional<Business> getBusinessByEmail(String email);
 }
