@@ -1,6 +1,11 @@
 http://localhost:8080/swagger-ui/index.html
 
 Business
+Login
+{
+  "email":"vk@vk.com",
+  "password":"rcb"
+}
 
 {
   "name":"vk08",
