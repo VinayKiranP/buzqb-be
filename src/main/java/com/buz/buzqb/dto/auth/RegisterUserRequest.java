@@ -8,5 +8,5 @@ public class RegisterUserRequest {
   private String password;
   private String name;
   private String mobile;
-  private Boolean mobileVerified;
+  private boolean mobileVerified;
 }

@@ -1,5 +1,10 @@
 package com.buz.buzqb.service.impl;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ResponseMessageUtils;
 import com.buz.buzqb.dto.auth.LoginUserRequest;
@@ -8,10 +13,6 @@ import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.exception.InvalidValuesException;
 import com.buz.buzqb.repository.BusinessRepo;
 import com.buz.buzqb.service.AuthenticationService;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -97,12 +98,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         exception.put(Constants.NAME, ResponseMessageUtils.getFieldNotNullMessage(Constants.NAME));
       }
 
-      if (registerUserRequest.getMobile() == null) {
+      if (registerUserRequest.getMobile().isEmpty() || registerUserRequest.getMobile() == null) {
         exception.put(Constants.MOBILE,
             ResponseMessageUtils.getFieldNotNullMessage(Constants.MOBILE));
       }
 
-      if (registerUserRequest.getMobileVerified() == null || !registerUserRequest.getMobileVerified()) {
+      if (!registerUserRequest.isMobileVerified()) {
         exception.put(Constants.MOBILE_VERIFICATION,
             ResponseMessageUtils.getVerificationShouldBeCompletedMessage(Constants.MOBILE));
       }
