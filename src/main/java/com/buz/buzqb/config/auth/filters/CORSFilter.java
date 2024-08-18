@@ -1,4 +1,4 @@
-package com.buz.buzqb.auth.filters;
+package com.buz.buzqb.config.auth.filters;
 
 
 import jakarta.servlet.*;

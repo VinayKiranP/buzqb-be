@@ -1,6 +1,6 @@
 package com.buz.buzqb.controller.auth;
 
-import com.buz.buzqb.auth.JwtService;
+import com.buz.buzqb.config.auth.JwtService;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.dto.auth.LoginResponse;
 import com.buz.buzqb.dto.auth.LoginUserRequest;

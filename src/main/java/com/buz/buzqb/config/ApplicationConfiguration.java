@@ -1,4 +1,4 @@
-package com.buz.buzqb.auth;
+package com.buz.buzqb.config;
 
 import com.buz.buzqb.repository.BusinessRepo;
 import org.springframework.context.annotation.Bean;

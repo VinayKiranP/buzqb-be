@@ -1,6 +1,7 @@
-package com.buz.buzqb.auth;
+package com.buz.buzqb.config;
 
 
+import com.buz.buzqb.config.auth.filters.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;

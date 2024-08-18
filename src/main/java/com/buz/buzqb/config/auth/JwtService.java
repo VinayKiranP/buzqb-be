@@ -1,4 +1,4 @@
-package com.buz.buzqb.auth;
+package com.buz.buzqb.config.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
