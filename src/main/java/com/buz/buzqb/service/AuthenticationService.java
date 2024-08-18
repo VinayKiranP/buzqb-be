@@ -32,6 +32,7 @@ public class AuthenticationService {
   }
 
   public Business signup(RegisterUserDto input) {
+    validateRegisterRequest(input);
     Business business = new Business();
     business.setName(input.getName());
     business.setEmail(input.getEmail());
@@ -40,7 +41,7 @@ public class AuthenticationService {
   }
 
   public Business authenticate(LoginUserDto input) {
-    validateMinimumLoginRequest(input);
+    validateLoginRequest(input);
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             input.getEmail(),
@@ -52,7 +53,7 @@ public class AuthenticationService {
         .orElseThrow();
   }
 
-  private void validateMinimumLoginRequest(LoginUserDto loginUserDto) {
+  private void validateLoginRequest(LoginUserDto loginUserDto) {
     InvalidValuesException exception = new InvalidValuesException();
     if (loginUserDto != null) {
       if (loginUserDto.getEmail() == null) {
@@ -61,6 +62,29 @@ public class AuthenticationService {
 
       if (loginUserDto.getPassword() == null) {
         exception.put(Constants.PASSWORD, ResponseMessageUtils.getFieldNotNullMessage(Constants.PASSWORD));
+      }
+    } else {
+      exception.put(Constants.REQUEST, ResponseMessageUtils.getFieldNotNullMessage(Constants.REQUEST));
+    }
+
+    if (!exception.getMessages().isEmpty()) {
+      throw exception;
+    }
+  }
+
+  private void validateRegisterRequest(RegisterUserDto registerUserDto) {
+    InvalidValuesException exception = new InvalidValuesException();
+    if (registerUserDto != null) {
+      if (registerUserDto.getEmail() == null) {
+        exception.put(Constants.EMAIL, ResponseMessageUtils.getFieldNotNullMessage(Constants.EMAIL));
+      }
+
+      if (registerUserDto.getPassword() == null) {
+        exception.put(Constants.PASSWORD, ResponseMessageUtils.getFieldNotNullMessage(Constants.PASSWORD));
+      }
+
+      if (registerUserDto.getName() == null) {
+        exception.put(Constants.NAME, ResponseMessageUtils.getFieldNotNullMessage(Constants.NAME));
       }
     } else {
       exception.put(Constants.REQUEST, ResponseMessageUtils.getFieldNotNullMessage(Constants.REQUEST));
