@@ -1,9 +1,12 @@
 package com.buz.buzqb.service;
 
 
+import com.buz.buzqb.common.Constants;
+import com.buz.buzqb.common.ResponseMessageUtils;
 import com.buz.buzqb.dto.auth.LoginUserDto;
 import com.buz.buzqb.dto.auth.RegisterUserDto;
 import com.buz.buzqb.entity.Business;
+import com.buz.buzqb.exception.InvalidValuesException;
 import com.buz.buzqb.repository.BusinessRepo;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,6 +40,7 @@ public class AuthenticationService {
   }
 
   public Business authenticate(LoginUserDto input) {
+    validateMinimumLoginRequest(input);
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             input.getEmail(),
@@ -46,5 +50,24 @@ public class AuthenticationService {
 
     return businessRepo.findByEmail(input.getEmail())
         .orElseThrow();
+  }
+
+  private void validateMinimumLoginRequest(LoginUserDto loginUserDto) {
+    InvalidValuesException exception = new InvalidValuesException();
+    if (loginUserDto != null) {
+      if (loginUserDto.getEmail() == null) {
+        exception.put(Constants.EMAIL, ResponseMessageUtils.getFieldNotNullMessage(Constants.EMAIL));
+      }
+
+      if (loginUserDto.getPassword() == null) {
+        exception.put(Constants.PASSWORD, ResponseMessageUtils.getFieldNotNullMessage(Constants.PASSWORD));
+      }
+    } else {
+      exception.put(Constants.REQUEST, ResponseMessageUtils.getFieldNotNullMessage(Constants.REQUEST));
+    }
+
+    if (!exception.getMessages().isEmpty()) {
+      throw exception;
+    }
   }
 }

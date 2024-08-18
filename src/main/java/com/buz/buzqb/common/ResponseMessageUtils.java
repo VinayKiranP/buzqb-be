@@ -1,0 +1,14 @@
+package com.buz.buzqb.common;
+
+public class ResponseMessageUtils {
+  public static final String INVALID_CREDENTIALS = "Email or Password is incorrect";
+  public static final String DELIMETER = ", ";
+
+  public static String getDeactivatedResourceMessage(String resource) {
+    return resource + "is not Active";
+  }
+
+  public static String getFieldNotNullMessage(String key) {
+    return key + " can't be empty.";
+  }
+}

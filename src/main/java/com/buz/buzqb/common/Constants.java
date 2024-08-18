@@ -12,5 +12,12 @@ public class Constants {
     public static final String ROLE_URI = "/role";
 
     // column constants
-    public static final String ID = "id";
+    public static final String ID = "Id";
+    public static final String EMAIL = "Email";
+    public static final String PASSWORD = "Password";
+
+    // field constants
+    public static final String REQUEST = "Request";
+    public static final String NAME = "Name";
+    public static final String DESCRIPTION = "Description";
 }
