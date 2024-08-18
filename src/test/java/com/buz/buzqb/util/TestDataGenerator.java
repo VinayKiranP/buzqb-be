@@ -28,7 +28,7 @@ public class TestDataGenerator {
     BusinessRequest businessRequest = new BusinessRequest();
     businessRequest.setName("testName");
     businessRequest.setEmail("testEmail");
-    businessRequest.setUsername("testUsername");
+//    businessRequest.setUsername("testUsername");
     businessRequest.setStatus("active");
 
     return businessRequest;
@@ -38,7 +38,7 @@ public class TestDataGenerator {
     Business business = new Business();
     business.setName("testName");
     business.setEmail("testEmail");
-    business.setUsername("testUsername");
+//    business.setUsername("testUsername");
     business.setStatus("active");
 
     sessionFactory.openSession().persist(business);

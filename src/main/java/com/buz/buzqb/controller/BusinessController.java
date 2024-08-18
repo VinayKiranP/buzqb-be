@@ -21,10 +21,13 @@ import java.util.Optional;
 @RequestMapping(Constants.V1_URI + Constants.BUSINESS_URI)
 public class BusinessController {
 
-  @Autowired
-  private BusinessService businessService;
-
+  private final BusinessService businessService;
   public static final Logger LOGGER = LoggerFactory.getLogger(BusinessController.class.getName());
+
+  @Autowired
+  private BusinessController(BusinessService businessService) {
+    this.businessService = businessService;
+  }
 
   @GetMapping
   public ResponseEntity<ResponseDto> getAllBusiness() {

@@ -24,10 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(Constants.V1_URI + Constants.ROLE_URI)
 public class RoleController {
 
-  @Autowired
-  private RoleService roleService;
-
+  private final RoleService roleService;
   public static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class.getName());
+
+  @Autowired
+  public RoleController(RoleService roleService){
+    this.roleService = roleService;
+  }
 
   @GetMapping
   public ResponseEntity<ResponseDto> getAllRole() {

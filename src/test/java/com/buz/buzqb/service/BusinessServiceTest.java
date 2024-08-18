@@ -22,8 +22,8 @@ class BusinessServiceTest {
 
   @Autowired
   BusinessServiceImpl businessServiceImpl;
-  @Autowired
-  TestDataGenerator testDataGenerator;
+//  @Autowired
+//  TestDataGenerator testDataGenerator;
 
   private Business business;
   private BusinessRequest businessRequest;

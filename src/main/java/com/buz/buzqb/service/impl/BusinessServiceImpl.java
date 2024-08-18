@@ -11,8 +11,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BusinessServiceImpl implements BusinessService {
+  private final BusinessRepo businessRepo;
+
   @Autowired
-  private BusinessRepo businessRepo;
+  public BusinessServiceImpl(BusinessRepo businessRepo){
+    this.businessRepo = businessRepo;
+  }
 
   @Override
   public List<Business> getAllBusiness() {

@@ -1,5 +1,6 @@
 package com.buz.buzqb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,7 +26,10 @@ public class Business implements UserDetails {
     private String mobile;
     @Column(unique = true, length = 250, nullable = false)
     private String email;
+    @JsonIgnore
     private String password;
+    @JsonIgnore
+    private String username;
     @Column(name = "address_line1")
     private String addressLine1;
     @Column(name = "address_line2")
