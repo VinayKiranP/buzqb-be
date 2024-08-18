@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BusinessRepo extends JpaRepository<Business, Integer> {
+
   Optional<Business> findByEmail(String email) throws UsernameNotFoundException;
 }

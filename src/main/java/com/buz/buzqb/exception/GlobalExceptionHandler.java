@@ -98,7 +98,8 @@ public class GlobalExceptionHandler {
     if (exception instanceof InvalidValuesException) {
       JsonObject jsonDescription = new JsonObject();
       Map<String, String> fieldErrors = ((InvalidValuesException) exception).getMessages();
-      errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(HttpServletResponse.SC_BAD_REQUEST),
+      errorDetail = ProblemDetail.forStatusAndDetail(
+          HttpStatusCode.valueOf(HttpServletResponse.SC_BAD_REQUEST),
           exception.getMessage());
       errorDetail.setProperty(Constants.DESCRIPTION, fieldErrors);
     }

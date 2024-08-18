@@ -25,18 +25,18 @@ public class RoleServiceImpl implements RoleService {
   }
 
   @Override
-  public Optional<Role> getRoleById(Integer id){
+  public Optional<Role> getRoleById(Integer id) {
     return roleRepo.findById(id);
   }
 
   @Override
-  public Role saveRole(RoleRequest roleRequest){
+  public Role saveRole(RoleRequest roleRequest) {
     Role role = roleRequest.requestToRole(roleRequest);
     return roleRepo.save(role);
   }
 
   @Override
-  public Role updateRole(Role role){
+  public Role updateRole(Role role) {
     return roleRepo.save(role);
   }
 }

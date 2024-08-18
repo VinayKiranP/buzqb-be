@@ -11,10 +11,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BusinessServiceImpl implements BusinessService {
+
   private final BusinessRepo businessRepo;
 
   @Autowired
-  public BusinessServiceImpl(BusinessRepo businessRepo){
+  public BusinessServiceImpl(BusinessRepo businessRepo) {
     this.businessRepo = businessRepo;
   }
 
@@ -24,28 +25,28 @@ public class BusinessServiceImpl implements BusinessService {
   }
 
   @Override
-  public Optional<Business> getBusinessById(Integer id){
+  public Optional<Business> getBusinessById(Integer id) {
     return businessRepo.findById(id);
   }
 
   @Override
-  public Business saveBusiness(BusinessRequest businessRequest){
+  public Business saveBusiness(BusinessRequest businessRequest) {
     Business business = businessRequest.requestToBusiness(businessRequest);
     return businessRepo.save(business);
   }
 
   @Override
-  public Business updateBusiness(Business business){
+  public Business updateBusiness(Business business) {
     return businessRepo.save(business);
   }
 
   @Override
-  public Business deleteBusiness(Business business){
+  public Business deleteBusiness(Business business) {
     return businessRepo.save(business);
   }
 
   @Override
-  public Optional<Business> getBusinessByEmail(String email){
+  public Optional<Business> getBusinessByEmail(String email) {
     return businessRepo.findByEmail(email);
   }
 }

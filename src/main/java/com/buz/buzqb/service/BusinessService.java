@@ -7,15 +7,15 @@ import java.util.Optional;
 
 public interface BusinessService {
 
-    List<Business> getAllBusiness();
+  List<Business> getAllBusiness();
 
-    Optional<Business> getBusinessById(Integer id);
+  Optional<Business> getBusinessById(Integer id);
 
-    Business saveBusiness(BusinessRequest businessRequest);
+  Business saveBusiness(BusinessRequest businessRequest);
 
-    Business updateBusiness(Business business);
+  Business updateBusiness(Business business);
 
-    Business deleteBusiness(Business business);
+  Business deleteBusiness(Business business);
 
-    Optional<Business> getBusinessByEmail(String email);
+  Optional<Business> getBusinessByEmail(String email);
 }

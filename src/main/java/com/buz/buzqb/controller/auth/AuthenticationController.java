@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(Constants.AUTH_URI)
 @RestController
 public class AuthenticationController {
+
   private final JwtService jwtService;
 
   private final AuthenticationService authenticationService;
 
-  public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
+  public AuthenticationController(JwtService jwtService,
+      AuthenticationService authenticationService) {
     this.jwtService = jwtService;
     this.authenticationService = authenticationService;
   }
@@ -32,7 +34,8 @@ public class AuthenticationController {
   }
 
   @PostMapping(Constants.LOGIN_URI)
-  public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserRequest loginUserRequest) {
+  public ResponseEntity<LoginResponse> authenticate(
+      @RequestBody LoginUserRequest loginUserRequest) {
     Business authenticatedUser = authenticationService.authenticate(loginUserRequest);
     String jwtToken = jwtService.generateToken(authenticatedUser);
     LoginResponse loginResponse = new LoginResponse();

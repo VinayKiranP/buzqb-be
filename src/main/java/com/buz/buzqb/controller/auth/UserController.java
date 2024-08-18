@@ -1,18 +1,17 @@
 package com.buz.buzqb.controller.auth;
 
-import com.buz.buzqb.common.Constants;
-import com.buz.buzqb.dto.auth.AuthenticatedUser;
-import com.buz.buzqb.entity.Business;
-import com.buz.buzqb.service.BusinessService;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.buz.buzqb.common.Constants;
+import com.buz.buzqb.entity.Business;
+import com.buz.buzqb.service.BusinessService;
 
 @RequestMapping(Constants.USERS_URI)
 @RestController

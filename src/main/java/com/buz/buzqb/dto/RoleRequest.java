@@ -8,17 +8,18 @@ import lombok.Data;
 
 @Data
 public class RoleRequest {
-    @NotNull
-    @Size(max = 250, message = "name can't exceed 250 characters")
-    private String name;
-    private String description;
-    private String status;
 
-    public Role requestToRole(RoleRequest roleRequest) {
-        Role role = new Role();
-        role.setName(roleRequest.getName());
-        role.setDescription(roleRequest.getDescription());
-        role.setStatus(roleRequest.getStatus());
-        return role;
-    }
+  @NotNull
+  @Size(max = 250, message = "name can't exceed 250 characters")
+  private String name;
+  private String description;
+  private String status;
+
+  public Role requestToRole(RoleRequest roleRequest) {
+    Role role = new Role();
+    role.setName(roleRequest.getName());
+    role.setDescription(roleRequest.getDescription());
+    role.setStatus(roleRequest.getStatus());
+    return role;
+  }
 }

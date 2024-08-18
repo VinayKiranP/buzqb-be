@@ -12,7 +12,7 @@ public interface ExceptionDetails {
     List<String> results = new ArrayList<>();
     if (additionalData != null) {
       for (String key : additionalData.keySet()) {
-        results.add(key + " : "+additionalData.get(key));
+        results.add(key + " : " + additionalData.get(key));
       }
     }
     return results;

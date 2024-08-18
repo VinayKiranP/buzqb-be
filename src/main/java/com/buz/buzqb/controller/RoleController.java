@@ -28,7 +28,7 @@ public class RoleController {
   public static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class.getName());
 
   @Autowired
-  public RoleController(RoleService roleService){
+  public RoleController(RoleService roleService) {
     this.roleService = roleService;
   }
 
