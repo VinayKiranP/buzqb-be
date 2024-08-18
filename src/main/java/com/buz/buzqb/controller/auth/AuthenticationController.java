@@ -3,8 +3,8 @@ package com.buz.buzqb.controller.auth;
 import com.buz.buzqb.auth.JwtService;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.dto.auth.LoginResponse;
-import com.buz.buzqb.dto.auth.LoginUserDto;
-import com.buz.buzqb.dto.auth.RegisterUserDto;
+import com.buz.buzqb.dto.auth.LoginUserRequest;
+import com.buz.buzqb.dto.auth.RegisterUserRequest;
 import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +26,14 @@ public class AuthenticationController {
   }
 
   @PostMapping(Constants.SIGNUP_URI)
-  public ResponseEntity<Business> register(@RequestBody RegisterUserDto registerUserDto) {
-    Business registeredUser = authenticationService.signup(registerUserDto);
+  public ResponseEntity<Business> register(@RequestBody RegisterUserRequest registerUserRequest) {
+    Business registeredUser = authenticationService.signup(registerUserRequest);
     return ResponseEntity.ok(registeredUser);
   }
 
   @PostMapping(Constants.LOGIN_URI)
-  public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
-    Business authenticatedUser = authenticationService.authenticate(loginUserDto);
+  public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserRequest loginUserRequest) {
+    Business authenticatedUser = authenticationService.authenticate(loginUserRequest);
     String jwtToken = jwtService.generateToken(authenticatedUser);
     LoginResponse loginResponse = new LoginResponse();
     loginResponse.setToken(jwtToken);

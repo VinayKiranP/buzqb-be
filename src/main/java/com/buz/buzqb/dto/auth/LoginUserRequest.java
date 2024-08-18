@@ -1,12 +1,9 @@
 package com.buz.buzqb.dto.auth;
 
 import lombok.Data;
-import jakarta.validation.constraints.NotNull;
 
 @Data
-public class LoginUserDto {
-  @NotNull
+public class LoginUserRequest {
   private String email;
-  @NotNull
   private String password;
 }

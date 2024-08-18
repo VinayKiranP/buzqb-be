@@ -11,4 +11,8 @@ public class ResponseMessageUtils {
   public static String getFieldNotNullMessage(String key) {
     return key + " can't be empty.";
   }
+
+  public static String getVerificationShouldBeCompletedMessage(String key) {
+    return key + " Verification Should be Completed.";
+  }
 }

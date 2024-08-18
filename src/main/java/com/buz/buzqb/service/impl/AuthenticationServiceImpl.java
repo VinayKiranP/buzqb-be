@@ -2,8 +2,8 @@ package com.buz.buzqb.service.impl;
 
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ResponseMessageUtils;
-import com.buz.buzqb.dto.auth.LoginUserDto;
-import com.buz.buzqb.dto.auth.RegisterUserDto;
+import com.buz.buzqb.dto.auth.LoginUserRequest;
+import com.buz.buzqb.dto.auth.RegisterUserRequest;
 import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.exception.InvalidValuesException;
 import com.buz.buzqb.repository.BusinessRepo;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
+
   private final BusinessRepo businessRepo;
 
   private final PasswordEncoder passwordEncoder;
@@ -32,17 +33,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   }
 
   @Override
-  public Business signup(RegisterUserDto input) {
+  public Business signup(RegisterUserRequest input) {
     validateRegisterRequest(input);
     Business business = new Business();
     business.setName(input.getName());
     business.setEmail(input.getEmail());
+    business.setMobile(input.getMobile());
+    business.setStatus(Constants.EMAIL_VERIFICATION_PENDING);
     business.setPassword(passwordEncoder.encode(input.getPassword()));
     return businessRepo.save(business);
   }
 
   @Override
-  public Business authenticate(LoginUserDto input) {
+  public Business authenticate(LoginUserRequest input) {
     validateLoginRequest(input);
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
@@ -55,18 +58,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         .orElseThrow();
   }
 
-  private void validateLoginRequest(LoginUserDto loginUserDto) {
+  private void validateLoginRequest(LoginUserRequest loginUserRequest) {
     InvalidValuesException exception = new InvalidValuesException();
-    if (loginUserDto != null) {
-      if (loginUserDto.getEmail() == null) {
-        exception.put(Constants.EMAIL, ResponseMessageUtils.getFieldNotNullMessage(Constants.EMAIL));
+    if (loginUserRequest != null) {
+      if (loginUserRequest.getEmail() == null) {
+        exception.put(Constants.EMAIL,
+            ResponseMessageUtils.getFieldNotNullMessage(Constants.EMAIL));
       }
 
-      if (loginUserDto.getPassword() == null) {
-        exception.put(Constants.PASSWORD, ResponseMessageUtils.getFieldNotNullMessage(Constants.PASSWORD));
+      if (loginUserRequest.getPassword() == null) {
+        exception.put(Constants.PASSWORD,
+            ResponseMessageUtils.getFieldNotNullMessage(Constants.PASSWORD));
       }
     } else {
-      exception.put(Constants.REQUEST, ResponseMessageUtils.getFieldNotNullMessage(Constants.REQUEST));
+      exception.put(Constants.REQUEST,
+          ResponseMessageUtils.getFieldNotNullMessage(Constants.REQUEST));
     }
 
     if (!exception.getMessages().isEmpty()) {
@@ -74,22 +80,35 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
   }
 
-  private void validateRegisterRequest(RegisterUserDto registerUserDto) {
+  private void validateRegisterRequest(RegisterUserRequest registerUserRequest) {
     InvalidValuesException exception = new InvalidValuesException();
-    if (registerUserDto != null) {
-      if (registerUserDto.getEmail() == null) {
-        exception.put(Constants.EMAIL, ResponseMessageUtils.getFieldNotNullMessage(Constants.EMAIL));
+    if (registerUserRequest != null) {
+      if (registerUserRequest.getEmail() == null) {
+        exception.put(Constants.EMAIL,
+            ResponseMessageUtils.getFieldNotNullMessage(Constants.EMAIL));
       }
 
-      if (registerUserDto.getPassword() == null) {
-        exception.put(Constants.PASSWORD, ResponseMessageUtils.getFieldNotNullMessage(Constants.PASSWORD));
+      if (registerUserRequest.getPassword() == null) {
+        exception.put(Constants.PASSWORD,
+            ResponseMessageUtils.getFieldNotNullMessage(Constants.PASSWORD));
       }
 
-      if (registerUserDto.getName() == null) {
+      if (registerUserRequest.getName() == null) {
         exception.put(Constants.NAME, ResponseMessageUtils.getFieldNotNullMessage(Constants.NAME));
       }
+
+      if (registerUserRequest.getMobile() == null) {
+        exception.put(Constants.MOBILE,
+            ResponseMessageUtils.getFieldNotNullMessage(Constants.MOBILE));
+      }
+
+      if (registerUserRequest.getMobileVerified() == null || !registerUserRequest.getMobileVerified()) {
+        exception.put(Constants.MOBILE_VERIFICATION,
+            ResponseMessageUtils.getVerificationShouldBeCompletedMessage(Constants.MOBILE));
+      }
     } else {
-      exception.put(Constants.REQUEST, ResponseMessageUtils.getFieldNotNullMessage(Constants.REQUEST));
+      exception.put(Constants.REQUEST,
+          ResponseMessageUtils.getFieldNotNullMessage(Constants.REQUEST));
     }
 
     if (!exception.getMessages().isEmpty()) {

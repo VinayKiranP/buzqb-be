@@ -19,5 +19,8 @@ public class Constants {
     // field constants
     public static final String REQUEST = "Request";
     public static final String NAME = "Name";
+    public static final String MOBILE = "Mobile";
+    public static final String MOBILE_VERIFICATION = "Mobile Verification";
     public static final String DESCRIPTION = "Description";
+    public static final String EMAIL_VERIFICATION_PENDING = "Email Verification Pending";
 }
