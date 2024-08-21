@@ -1,5 +1,6 @@
 package com.buz.buzqb.controller.auth;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ public class UserController {
   }
 
   @GetMapping("/me")
+  @SecurityRequirement(name = "buzqbbeapi")
   public ResponseEntity<Business> authenticatedUser() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     Business currentUser = (Business) authentication.getPrincipal();
