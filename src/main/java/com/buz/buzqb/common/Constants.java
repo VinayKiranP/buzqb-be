@@ -17,6 +17,7 @@ public class Constants {
     public static final String PASSWORD = "Password";
 
     // field constants
+    public static final String BUSINESS = "Business";
     public static final String REQUEST = "Request";
     public static final String NAME = "Name";
     public static final String MOBILE = "Mobile";

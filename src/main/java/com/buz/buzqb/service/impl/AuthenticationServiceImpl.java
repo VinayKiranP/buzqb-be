@@ -1,5 +1,6 @@
 package com.buz.buzqb.service.impl;
 
+import java.util.Optional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,6 +37,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   @Override
   public Business signup(RegisterUserRequest input) {
     validateRegisterRequest(input);
+    checkForDuplicateRecord(input);
     Business business = new Business();
     business.setName(input.getName());
     business.setEmail(input.getEmail());
@@ -43,6 +45,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     business.setStatus(Constants.EMAIL_VERIFICATION_PENDING);
     business.setPassword(passwordEncoder.encode(input.getPassword()));
     return businessRepo.save(business);
+  }
+
+  private void checkForDuplicateRecord(RegisterUserRequest input) {
+    Optional<Business> isExist = businessRepo.findByEmail(input.getEmail());
+    if (isExist.isPresent()){
+      InvalidValuesException exception = new InvalidValuesException();
+      exception.put(Constants.REQUEST,
+          ResponseMessageUtils.getDuplicateRecordMessage(Constants.BUSINESS, Constants.EMAIL));
+      throw exception;
+    }
   }
 
   @Override

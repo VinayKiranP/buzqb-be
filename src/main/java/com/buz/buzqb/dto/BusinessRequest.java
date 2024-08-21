@@ -34,7 +34,6 @@ public class BusinessRequest {
     business.setName(businessRequest.getName());
     business.setMobile(businessRequest.getMobile());
     business.setEmail(businessRequest.getEmail());
-//        business.setPassword(businessRequest.getPassword());
     business.setAddressLine1(businessRequest.getAddressLine1());
     business.setAddressLine2(businessRequest.getAddressLine2());
     business.setLandmark(businessRequest.getLandmark());

@@ -15,4 +15,8 @@ public class ResponseMessageUtils {
   public static String getVerificationShouldBeCompletedMessage(String key) {
     return key + " Verification Should be Completed.";
   }
+
+  public static String getDuplicateRecordMessage(String object, String key) {
+    return object + " with Same "+ key +" already Exist";
+  }
 }

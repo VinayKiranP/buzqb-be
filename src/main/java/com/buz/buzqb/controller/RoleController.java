@@ -51,7 +51,7 @@ public class RoleController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getRoleById(@PathVariable Integer id) throws Exception {
+  public ResponseEntity<ResponseDto> getRoleById(@PathVariable Integer id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 

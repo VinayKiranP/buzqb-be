@@ -46,7 +46,7 @@ public class BusinessController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getBusinessById(@PathVariable Integer id) throws Exception {
+  public ResponseEntity<ResponseDto> getBusinessById(@PathVariable Integer id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
