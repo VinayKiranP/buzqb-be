@@ -6,6 +6,7 @@ import com.buz.buzqb.common.ResponseDto;
 import com.buz.buzqb.dto.BusinessRequest;
 import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.service.BusinessService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(Constants.V1_URI + Constants.BUSINESS_URI)
+@SecurityRequirement(name = "buzqbbeapi")
 public class BusinessController {
 
   private final BusinessService businessService;
