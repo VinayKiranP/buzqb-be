@@ -6,6 +6,7 @@ import com.buz.buzqb.common.ResponseDto;
 import com.buz.buzqb.dto.RoleRequest;
 import com.buz.buzqb.entity.Role;
 import com.buz.buzqb.service.RoleService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(Constants.V1_URI + Constants.ROLE_URI)
+@SecurityRequirement(name = "buzqbbeapi")
 public class RoleController {
 
   private final RoleService roleService;
