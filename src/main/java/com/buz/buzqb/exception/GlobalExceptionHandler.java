@@ -7,22 +7,15 @@ import com.google.gson.JsonObject;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
@@ -96,7 +89,6 @@ public class GlobalExceptionHandler {
     }
 
     if (exception instanceof InvalidValuesException) {
-      JsonObject jsonDescription = new JsonObject();
       Map<String, String> fieldErrors = ((InvalidValuesException) exception).getMessages();
       errorDetail = ProblemDetail.forStatusAndDetail(
           HttpStatusCode.valueOf(HttpServletResponse.SC_BAD_REQUEST),
@@ -109,7 +101,7 @@ public class GlobalExceptionHandler {
           exception.getMessage());
       errorDetail.setProperty("description", "Unknown internal server error.");
     }
-
+    LOGGER.error(errorDetail.toString());
     return errorDetail;
   }
 }

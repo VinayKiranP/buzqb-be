@@ -92,12 +92,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   private void validateLoginRequest(LoginUserRequest loginUserRequest) {
     InvalidValuesException exception = new InvalidValuesException();
     if (loginUserRequest != null) {
-      if (loginUserRequest.getEmail() == null) {
+      if (loginUserRequest.getEmail() == null || loginUserRequest.getEmail().isEmpty()) {
         exception.put(Constants.EMAIL,
             ResponseMessageUtils.getFieldNotNullMessage(Constants.EMAIL));
       }
 
-      if (loginUserRequest.getPassword() == null) {
+      if (loginUserRequest.getPassword() == null || loginUserRequest.getPassword().isEmpty()) {
         exception.put(Constants.PASSWORD,
             ResponseMessageUtils.getFieldNotNullMessage(Constants.PASSWORD));
       }
@@ -118,29 +118,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   private void validateRegisterRequest(RegisterUserRequest registerUserRequest) {
     InvalidValuesException exception = new InvalidValuesException();
     if (registerUserRequest != null) {
-      if (registerUserRequest.getEmail() == null) {
-        exception.put(Constants.EMAIL,
-            ResponseMessageUtils.getFieldNotNullMessage(Constants.EMAIL));
-      }
-
-      if (registerUserRequest.getPassword() == null) {
-        exception.put(Constants.PASSWORD,
-            ResponseMessageUtils.getFieldNotNullMessage(Constants.PASSWORD));
-      }
-
-      if (registerUserRequest.getName() == null) {
-        exception.put(Constants.NAME, ResponseMessageUtils.getFieldNotNullMessage(Constants.NAME));
-      }
-
-      if (registerUserRequest.getMobile().isEmpty() || registerUserRequest.getMobile() == null) {
-        exception.put(Constants.MOBILE,
-            ResponseMessageUtils.getFieldNotNullMessage(Constants.MOBILE));
-      }
-
-      if (!registerUserRequest.isMobileVerified()) {
-        exception.put(Constants.MOBILE_VERIFICATION,
-            ResponseMessageUtils.getVerificationShouldBeCompletedMessage(Constants.MOBILE));
-      }
+      validateRegisterRequestFields(registerUserRequest, exception);
     } else {
       exception.put(Constants.REQUEST,
           ResponseMessageUtils.getFieldNotNullMessage(Constants.REQUEST));
@@ -148,6 +126,31 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     if (!exception.getMessages().isEmpty()) {
       throw exception;
+    }
+  }
+
+  private static void validateRegisterRequestFields(RegisterUserRequest registerUserRequest,
+      InvalidValuesException exception) {
+    if (registerUserRequest.getEmail() == null || registerUserRequest.getEmail().isEmpty()) {
+      exception.put(Constants.EMAIL,
+          ResponseMessageUtils.getFieldNotNullMessage(Constants.EMAIL));
+    }
+    if (registerUserRequest.getPassword().isEmpty() || registerUserRequest.getPassword() == null) {
+      exception.put(Constants.PASSWORD,
+          ResponseMessageUtils.getFieldNotNullMessage(Constants.PASSWORD));
+    }
+    if (registerUserRequest.getName().isEmpty() || registerUserRequest.getName() == null) {
+      exception.put(Constants.NAME, ResponseMessageUtils.getFieldNotNullMessage(Constants.NAME));
+    }
+
+    if (registerUserRequest.getMobile().isEmpty() || registerUserRequest.getMobile() == null) {
+      exception.put(Constants.MOBILE,
+          ResponseMessageUtils.getFieldNotNullMessage(Constants.MOBILE));
+    }
+
+    if (!registerUserRequest.isMobileVerified()) {
+      exception.put(Constants.MOBILE_VERIFICATION,
+          ResponseMessageUtils.getVerificationShouldBeCompletedMessage(Constants.MOBILE));
     }
   }
 }
