@@ -24,11 +24,19 @@ public class BusinessController {
   private final BusinessService businessService;
   public static final Logger LOGGER = LoggerFactory.getLogger(BusinessController.class.getName());
 
+  /**
+   * Constructor
+   * @param businessService
+   */
   @Autowired
   private BusinessController(BusinessService businessService) {
     this.businessService = businessService;
   }
 
+  /**
+   * Get Business By status
+   * @return
+   */
   @GetMapping
   public ResponseEntity<ResponseDto> getAllBusiness() {
     ResponseDto response = new ResponseDto();
@@ -47,6 +55,11 @@ public class BusinessController {
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
+  /**
+   * Get Business By Id
+   * @param id
+   * @return
+   */
   @GetMapping("/{id}")
   public ResponseEntity<ResponseDto> getBusinessById(@PathVariable Integer id) {
     ResponseDto response = new ResponseDto();
@@ -65,6 +78,11 @@ public class BusinessController {
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
+  /**
+   * Add Business
+   * @param businessRequest
+   * @return
+   */
   @PostMapping
   public ResponseEntity<ResponseDto> addBusiness(@RequestBody BusinessRequest businessRequest) {
     ResponseDto response = new ResponseDto();
@@ -83,6 +101,12 @@ public class BusinessController {
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
+  /**
+   * Put Business
+   * @param id
+   * @param businessRequest
+   * @return
+   */
   @PutMapping("/{id}")
   public ResponseEntity<ResponseDto> updateBusiness(@PathVariable Integer id,
       @RequestBody BusinessRequest businessRequest) {
@@ -110,6 +134,11 @@ public class BusinessController {
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
+  /**
+   * Soft Delete Business
+   * @param id
+   * @return
+   */
   @DeleteMapping("/{id}")
   public ResponseEntity<ResponseDto> patchBusiness(@PathVariable Integer id) {
     ResponseDto response = new ResponseDto();

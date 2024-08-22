@@ -34,6 +34,10 @@ public class RoleController {
     this.roleService = roleService;
   }
 
+  /**
+   * Get Role By Status
+   * @return
+   */
   @GetMapping
   public ResponseEntity<ResponseDto> getAllRole() {
     ResponseDto response = new ResponseDto();
@@ -52,6 +56,11 @@ public class RoleController {
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
+  /**
+   * Get Role By Id
+   * @param id
+   * @return
+   */
   @GetMapping("/{id}")
   public ResponseEntity<ResponseDto> getRoleById(@PathVariable Integer id) {
     ResponseDto response = new ResponseDto();
@@ -70,6 +79,11 @@ public class RoleController {
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
+  /**
+   * Add Role
+   * @param roleRequest
+   * @return
+   */
   @PostMapping
   public ResponseEntity<ResponseDto> addRole(@RequestBody RoleRequest roleRequest) {
     ResponseDto response = new ResponseDto();
@@ -88,6 +102,12 @@ public class RoleController {
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
+  /**
+   * Put Role
+   * @param id
+   * @param roleRequest
+   * @return
+   */
   @PutMapping("/{id}")
   public ResponseEntity<ResponseDto> updateRole(@PathVariable Integer id,
       @RequestBody RoleRequest roleRequest) {

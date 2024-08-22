@@ -34,19 +34,28 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     this.passwordEncoder = passwordEncoder;
   }
 
+  /**
+   * Sign In
+   * @param registerUserRequest
+   * @return
+   */
   @Override
-  public Business signup(RegisterUserRequest input) {
-    validateRegisterRequest(input);
-    checkForDuplicateRecord(input);
+  public Business signup(RegisterUserRequest registerUserRequest) {
+    validateRegisterRequest(registerUserRequest);
+    checkForDuplicateRecord(registerUserRequest);
     Business business = new Business();
-    business.setName(input.getName());
-    business.setEmail(input.getEmail());
-    business.setMobile(input.getMobile());
+    business.setName(registerUserRequest.getName());
+    business.setEmail(registerUserRequest.getEmail());
+    business.setMobile(registerUserRequest.getMobile());
     business.setStatus(Constants.EMAIL_VERIFICATION_PENDING);
-    business.setPassword(passwordEncoder.encode(input.getPassword()));
+    business.setPassword(passwordEncoder.encode(registerUserRequest.getPassword()));
     return businessRepo.save(business);
   }
 
+  /**
+   * Check Duplicate Business Record By Email
+   * @param input
+   */
   private void checkForDuplicateRecord(RegisterUserRequest input) {
     Optional<Business> isExist = businessRepo.findByEmail(input.getEmail());
     if (isExist.isPresent()){
@@ -57,6 +66,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
   }
 
+  /**
+   * Authenticate Business User
+   * @param input
+   * @return
+   */
   @Override
   public Business authenticate(LoginUserRequest input) {
     validateLoginRequest(input);
@@ -71,6 +85,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         .orElseThrow();
   }
 
+  /**
+   * Validate Login Request
+   * @param loginUserRequest
+   */
   private void validateLoginRequest(LoginUserRequest loginUserRequest) {
     InvalidValuesException exception = new InvalidValuesException();
     if (loginUserRequest != null) {
@@ -93,6 +111,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
   }
 
+  /**
+   * Validate Business Registration Request
+   * @param registerUserRequest
+   */
   private void validateRegisterRequest(RegisterUserRequest registerUserRequest) {
     InvalidValuesException exception = new InvalidValuesException();
     if (registerUserRequest != null) {
