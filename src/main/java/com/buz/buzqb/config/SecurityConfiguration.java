@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -20,8 +21,8 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-  private final AuthenticationProvider authenticationProvider;
-  private final JwtAuthenticationFilter jwtAuthenticationFilter;
+  private AuthenticationProvider authenticationProvider;
+  private JwtAuthenticationFilter jwtAuthenticationFilter;
 
   public SecurityConfiguration(
       JwtAuthenticationFilter jwtAuthenticationFilter,
@@ -32,8 +33,8 @@ public class SecurityConfiguration {
   }
 
   @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.csrf()
+  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    /*httpSecurity.csrf()
         .disable()
         .authorizeHttpRequests()
         .requestMatchers("/auth/**", "/info", "/swagger-ui/**", "/health", "actuator/**",
@@ -46,9 +47,26 @@ public class SecurityConfiguration {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authenticationProvider(authenticationProvider)
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);*/
+
+    //Above method has been redifined as below due to some of the methods deprecated in v6+
+
+    //httpSecurity.csrf(csrf -> csrf.disable());
+
+    httpSecurity.csrf(AbstractHttpConfigurer::disable);
+    httpSecurity.authorizeHttpRequests(authorize ->
+      authorize.requestMatchers("/auth/**", "/info", "/swagger-ui/**", "/health", "actuator/**",
+              "/swagger-ui.html", "/v3/api-docs/**")
+          .permitAll()
+          .anyRequest()
+          .authenticated()
+    );
+    httpSecurity.sessionManagement(
+        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+    httpSecurity.authenticationProvider(authenticationProvider)
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-    return http.build();
+    return httpSecurity.build();
   }
 
   @Bean
