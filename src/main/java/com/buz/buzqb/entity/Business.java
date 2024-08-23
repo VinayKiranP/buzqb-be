@@ -12,6 +12,7 @@ import java.util.List;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -42,6 +43,14 @@ public class Business implements UserDetails {
   @Column(name = "country_id")
   private Integer countryId;
   private String pincode;
+  @Column(name = "email_verified")
+  private boolean emailVerified;
+  @Column(name = "profile_pic")
+  private String profilePic;
+  @Column(name = "provider_user_id")
+  private String providerUserId;
+  private String about;
+  private String provider;
   private String status;
 
   @CreationTimestamp

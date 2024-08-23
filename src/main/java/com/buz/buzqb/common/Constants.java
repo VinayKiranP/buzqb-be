@@ -17,6 +17,7 @@ public class Constants {
     public static final String PASSWORD = "Password";
 
     // field constants
+    public static final String PENDING = "Pending";
     public static final String BUSINESS = "Business";
     public static final String REQUEST = "Request";
     public static final String NAME = "Name";
@@ -24,4 +25,8 @@ public class Constants {
     public static final String MOBILE_VERIFICATION = "Mobile Verification";
     public static final String DESCRIPTION = "Description";
     public static final String EMAIL_VERIFICATION_PENDING = "Email Verification Pending";
+
+    // oAuthProviders
+    public static final String GOOGLE = "google";
+    public static final String GITHUB = "github";
 }

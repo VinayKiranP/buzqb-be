@@ -13,7 +13,15 @@ spring:
     show-sql: 'true'
     hibernate:
       ddl-auto: update
-
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-name: google
+            client-id: 857689704790-k2mtbfm1gfm08ltda8pn6gr6a027k1nr.apps.googleusercontent.com
+            client-secret: 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
+            scope: email, profile
 security:
   jwt:
     expiration-time: '7200000'
