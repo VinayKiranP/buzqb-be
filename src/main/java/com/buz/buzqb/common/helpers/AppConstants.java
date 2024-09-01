@@ -1,6 +1,9 @@
 package com.buz.buzqb.common.helpers;
 
-public class AppConstants {
+public final class AppConstants {
+
+  private AppConstants() {
+  }
 
   public static final String APP_NAME = "SCM";
   public static final String ROLE_USER = "ROLE_USER";

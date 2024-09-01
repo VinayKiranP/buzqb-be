@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class InvalidValuesException extends RuntimeException implements ExceptionDetails {
 
-  private Map<String, String> messages;
+  private final Map<String, String> messages;
 
   public InvalidValuesException() {
     super();

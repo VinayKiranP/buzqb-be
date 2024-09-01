@@ -1,6 +1,9 @@
 package com.buz.buzqb.common;
 
-public class Constants {
+public final class Constants {
+
+    private Constants() {
+    }
 
     // uri constants
     public static final String V1_URI = "/v1";

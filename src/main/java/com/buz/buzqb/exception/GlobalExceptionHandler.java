@@ -1,9 +1,6 @@
 package com.buz.buzqb.exception;
 
-import static org.aspectj.bridge.MessageUtil.getMessages;
-
 import com.buz.buzqb.common.Constants;
-import com.google.gson.JsonObject;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,32 +19,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
-  //added for InvalidValuesException, as it's not worked moved if case to handleSecurityException
-//  @ExceptionHandler(Exception.class)
-//  public void handleConflict(HttpServletResponse response, Exception exception) throws IOException {
-//    LOGGER.error("");
-//    ResponseStatus responseStatus = AnnotationUtils.findAnnotation(exception.getClass(),
-//        ResponseStatus.class);
-//    response.setStatus(responseStatus == null ? HttpServletResponse.SC_INTERNAL_SERVER_ERROR
-//        : responseStatus.value().value());
-//    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-//
-//    JsonObject jsonObject = new JsonObject();
-//
-//    if (exception instanceof InvalidValuesException) {
-//      JsonObject jsonDescription = new JsonObject();
-//      List<FieldError> fieldErrors = ((MethodArgumentNotValidException) exception).getBindingResult()
-//          .getFieldErrors();
-//      for (FieldError fieldError : fieldErrors) {
-//        jsonDescription.addProperty(fieldError.getField(), fieldError.getDefaultMessage());
-//      }
-//      jsonObject.add(Constants.DESCRIPTION, jsonDescription);
-//      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//    }
-//
-//    response.getWriter().print(jsonObject);
-//  }
 
   @ExceptionHandler(Exception.class)
   public ProblemDetail handleSecurityException(Exception exception) {
