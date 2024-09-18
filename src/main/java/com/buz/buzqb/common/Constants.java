@@ -13,6 +13,7 @@ public final class Constants {
     public static final String LOGIN_URI = "/login";
     public static final String BUSINESS_URI = "/business";
     public static final String ROLE_URI = "/role";
+    public static final String PICTURE_URI = "/picture";
 
     // column constants
     public static final String ID = "Id";
@@ -32,4 +33,8 @@ public final class Constants {
     // oAuthProviders
     public static final String GOOGLE = "google";
     public static final String GITHUB = "github";
+
+    // security constants
+    public static final String SECURITY_SCHEME = "Bearer";
+    public static final String SECURITY_SCHEME_NAME = "buzqbbeapi";
 }

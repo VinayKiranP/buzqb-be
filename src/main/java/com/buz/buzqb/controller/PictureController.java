@@ -3,9 +3,9 @@ package com.buz.buzqb.controller;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
-import com.buz.buzqb.dto.RoleRequest;
-import com.buz.buzqb.entity.Role;
-import com.buz.buzqb.service.RoleService;
+import com.buz.buzqb.dto.PictureRequest;
+import com.buz.buzqb.entity.Picture;
+import com.buz.buzqb.service.PictureService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,114 +22,114 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.ROLE_URI)
+@RequestMapping(Constants.V1_URI + Constants.PICTURE_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
-public class RoleController {
+public class PictureController {
 
-  private final RoleService roleService;
-  public static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class.getName());
+  private final PictureService pictureService;
+  public static final Logger LOGGER = LoggerFactory.getLogger(PictureController.class.getName());
 
   @Autowired
-  public RoleController(RoleService roleService) {
-    this.roleService = roleService;
+  public PictureController(PictureService pictureService) {
+    this.pictureService = pictureService;
   }
 
   /**
-   * Get Role By Status
+   * Get Picture By Status
    * @return
    */
   @GetMapping
-  public ResponseEntity<ResponseDto> getAllRole() {
+  public ResponseEntity<ResponseDto> getAllPictures() {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(roleService.getAllRole());
+      response.setData(pictureService.getAllPicture());
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Role getAllRole error:{}, exception:{}",
+      LOGGER.error("error in Getting Picture getAllPicture error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Get Role By Id
+   * Get Picture By Id
    * @param id
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getRoleById(@PathVariable Integer id) {
+  public ResponseEntity<ResponseDto> getPictureById(@PathVariable Integer id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(roleService.getRoleById(id));
+      response.setData(pictureService.getPictureById(id));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Role getRoleById error:{}, exception:{}",
+      LOGGER.error("error in Getting Picture getPictureById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Add Role
-   * @param roleRequest
+   * Add Picture
+   * @param pictureRequest
    * @return
    */
   @PostMapping
-  public ResponseEntity<ResponseDto> addRole(@RequestBody RoleRequest roleRequest) {
+  public ResponseEntity<ResponseDto> addPicture(@RequestBody PictureRequest pictureRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(roleService.saveRole(roleRequest));
+      response.setData(pictureService.savePicture(pictureRequest));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Role addRole error:{}, exception:{}", httpStatusCode,
+      LOGGER.error("error in Getting Picture addPicture error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Put Role
+   * Put Picture
    * @param id
-   * @param roleRequest
+   * @param pictureRequest
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updateRole(@PathVariable Integer id,
-      @RequestBody RoleRequest roleRequest) {
+  public ResponseEntity<ResponseDto> updatePicture(@PathVariable Integer id,
+      @RequestBody PictureRequest pictureRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<Role> business = roleService.getRoleById(id);
-      if (business.isPresent()) {
-        Role updatedRole = roleRequest.requestToRole(roleRequest);
-        updatedRole.setId(id);
-        response.setData(roleService.updateRole(updatedRole));
+      Optional<Picture> picture = pictureService.getPictureById(id);
+      if (picture.isPresent()) {
+        Picture updatedPicture = pictureRequest.requestToPicture(pictureRequest);
+        updatedPicture.setId(id);
+        response.setData(pictureService.updatePicture(updatedPicture));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(business);
+        response.setData(picture);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Role updateBusiness error:{}, exception:{}",
+      LOGGER.error("error in Getting Picture updatePicture error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(Constants.V1_URI + Constants.BUSINESS_URI)
-@SecurityRequirement(name = "buzqbbeapi")
+@SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
 public class BusinessController {
 
   private final BusinessService businessService;
