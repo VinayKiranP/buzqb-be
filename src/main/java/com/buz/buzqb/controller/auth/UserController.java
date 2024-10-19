@@ -25,7 +25,7 @@ public class UserController {
   }
 
   @GetMapping("/me")
-  @SecurityRequirement(name = "buzqbbeapi")
+  @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
   public ResponseEntity<Business> authenticatedUser() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     Business currentUser = (Business) authentication.getPrincipal();
@@ -37,5 +37,15 @@ public class UserController {
     List<Business> users = businessService.getAllBusiness();
 
     return ResponseEntity.ok(users);
+  }
+
+  /**
+   * To get the Logged in authenticated business
+   * @return Business
+   */
+  public Business authenticatedBusiness() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    Business currentUser = (Business) authentication.getPrincipal();
+    return currentUser;
   }
 }

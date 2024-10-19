@@ -14,6 +14,7 @@ public final class Constants {
     public static final String BUSINESS_URI = "/business";
     public static final String ROLE_URI = "/role";
     public static final String PICTURE_URI = "/picture";
+    public static final String BRAND_URI = "/brand";
 
     // column constants
     public static final String ID = "Id";
