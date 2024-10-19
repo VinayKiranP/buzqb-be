@@ -1,23 +1,22 @@
 package com.buz.buzqb.entity;
 
+import com.buz.buzqb.entity.common.AuditModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
 @Entity(name = "business")
-public class Business implements UserDetails {
+public class Business extends AuditModel implements UserDetails, Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,14 +50,6 @@ public class Business implements UserDetails {
   private String about;
   private String provider;
   private String status;
-
-  @CreationTimestamp
-  @Column(updatable = false, name = "created_at")
-  private Date createdAt;
-
-  @UpdateTimestamp
-  @Column(name = "updated_at")
-  private Date updatedAt;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

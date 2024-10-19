@@ -107,6 +107,11 @@
       <artifactId>spring-boot-starter-oauth2-client</artifactId>
       <version>3.3.2</version>
     </dependency>
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-envers</artifactId>
+      <version>6.6.1.Final</version>
+    </dependency>
   </dependencies>
 
   <build>
