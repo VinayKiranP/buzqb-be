@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
 @Entity(name = "business")
-public class Business extends AuditedModel implements UserDetails, Serializable {
+public class Business implements UserDetails, Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,16 +1,13 @@
 package com.buz.buzqb.entity.view;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Table;
 import java.io.Serializable;
 import lombok.Data;
 import org.hibernate.annotations.Immutable;
 
-@Entity
-@Table(name = "view_business")
+//@Entity
+//@Table(name = "view_business")
 @Immutable
 @Data
 public class BusinessView implements Serializable {

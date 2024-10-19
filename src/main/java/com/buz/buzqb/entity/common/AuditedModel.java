@@ -1,6 +1,6 @@
 package com.buz.buzqb.entity.common;
 
-import com.buz.buzqb.entity.view.BusinessView;
+import com.buz.buzqb.entity.Business;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
@@ -31,7 +31,7 @@ public class AuditedModel implements Serializable {
   @JoinColumn(name = "created_by")
   @Restricted
   @JsonProperty
-  protected BusinessView createdBy;
+  protected Business createdBy;
 
   @Audited
   @Column(name = "updated_date_time", columnDefinition = "DATETIME")
@@ -43,6 +43,6 @@ public class AuditedModel implements Serializable {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "updated_by")
   @JsonProperty
-  protected BusinessView updatedBy;
+  protected Business updatedBy;
 
 }
