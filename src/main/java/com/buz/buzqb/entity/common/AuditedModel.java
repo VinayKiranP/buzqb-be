@@ -3,21 +3,21 @@ package com.buz.buzqb.entity.common;
 import com.buz.buzqb.entity.view.BusinessView;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
-@Data
 @MappedSuperclass
-public class AuditModel implements Serializable {
+public class AuditedModel implements Serializable {
 
   @Audited
   @Column(name = "created_date_time", columnDefinition = "DATETIME")
@@ -27,7 +27,7 @@ public class AuditModel implements Serializable {
   protected Date createdDateTime;
 
   @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-//  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "created_by")
   @Restricted
   @JsonProperty
@@ -40,7 +40,7 @@ public class AuditModel implements Serializable {
   protected Date updatedDateTime;
 
   @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-//  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "updated_by")
   @JsonProperty
   protected BusinessView updatedBy;

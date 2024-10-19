@@ -1,6 +1,6 @@
 package com.buz.buzqb.entity;
 
-import com.buz.buzqb.entity.common.AuditModel;
+import com.buz.buzqb.entity.common.AuditedModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
 @Entity(name = "business")
-public class Business extends AuditModel implements UserDetails, Serializable {
+public class Business extends AuditedModel implements UserDetails, Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
