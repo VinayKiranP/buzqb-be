@@ -7,19 +7,19 @@ import lombok.Data;
 @Data
 public class AuthenticatedUser implements Serializable {
 
-  private Integer id;
+  private Long id;
   private String email;
   private String name;
   private String status;
 
-  public AuthenticatedUser(Integer id, String email, String name, String status) {
+  public AuthenticatedUser(Long id, String email, String name, String status) {
     this.id = id;
     this.email = email;
     this.name = name;
     this.status = status;
   }
 
-  public AuthenticatedUser(Integer id) {
+  public AuthenticatedUser(Long id) {
     this.id = id;
   }
 

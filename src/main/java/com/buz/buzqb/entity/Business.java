@@ -10,18 +10,24 @@ import jakarta.persistence.Id;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "business")
 public class Business implements UserDetails, Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(nullable = false)
-  private Integer id;
+  private Long id;
   private String name;
   private String mobile;
   @Column(unique = true, length = 250, nullable = false)

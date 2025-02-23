@@ -9,7 +9,7 @@ public interface BusinessService {
 
   List<Business> getAllBusiness();
 
-  Optional<Business> getBusinessById(Integer id);
+  Optional<Business> getBusinessById(Long id);
 
   Business saveBusiness(BusinessRequest businessRequest);
 
