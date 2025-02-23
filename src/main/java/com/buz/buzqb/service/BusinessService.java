@@ -11,9 +11,7 @@ public interface BusinessService {
 
   Optional<Business> getBusinessById(Long id);
 
-  Business saveBusiness(BusinessRequest businessRequest);
-
-  Business updateBusiness(Business business);
+  Business saveBusiness(Business business);
 
   Business deleteBusiness(Business business);
 

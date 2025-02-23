@@ -89,7 +89,8 @@ public class BusinessController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(businessService.saveBusiness(businessRequest));
+      Business business = businessRequest.requestToBusiness(businessRequest);
+      response.setData(businessService.saveBusiness(business));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -118,7 +119,7 @@ public class BusinessController {
       if (business.isPresent()) {
         Business updatedBusiness = businessRequest.requestToBusiness(businessRequest);
         updatedBusiness.setId(id);
-        response.setData(businessService.updateBusiness(updatedBusiness));
+        response.setData(businessService.saveBusiness(updatedBusiness));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;

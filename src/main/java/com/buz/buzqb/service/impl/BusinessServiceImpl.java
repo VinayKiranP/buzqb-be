@@ -29,7 +29,7 @@ public class BusinessServiceImpl implements BusinessService {
   }
 
   @Override
-  @Cacheable(value = "business",  key = "{#root.methodName, #id}")
+  @Cacheable(value = "business")
   public Optional<Business> getBusinessById(Long id) {
     var data = businessRepo.findById(id);
 //    var entity = data.isPresent() ? Hibernate.unproxy(data.get(), Business.class) : null;
@@ -39,13 +39,7 @@ public class BusinessServiceImpl implements BusinessService {
 
   @Override
   @CachePut(value = "business", key = "#busines.id")
-  public Business saveBusiness(BusinessRequest businessRequest) {
-    Business business = businessRequest.requestToBusiness(businessRequest);
-    return businessRepo.save(business);
-  }
-
-  @Override
-  public Business updateBusiness(Business business) {
+  public Business saveBusiness(Business business) {
     return businessRepo.save(business);
   }
 
