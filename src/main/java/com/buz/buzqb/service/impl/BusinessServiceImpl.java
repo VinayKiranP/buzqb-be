@@ -7,6 +7,9 @@ import com.buz.buzqb.service.BusinessService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,11 +28,13 @@ public class BusinessServiceImpl implements BusinessService {
   }
 
   @Override
-  public Optional<Business> getBusinessById(Integer id) {
+  @Cacheable(value = "business", key = "#id")
+  public Optional<Business> getBusinessById(Long id) {
     return businessRepo.findById(id);
   }
 
   @Override
+  @CachePut(value = "business", key = "#busines.id")
   public Business saveBusiness(BusinessRequest businessRequest) {
     Business business = businessRequest.requestToBusiness(businessRequest);
     return businessRepo.save(business);
@@ -41,6 +46,7 @@ public class BusinessServiceImpl implements BusinessService {
   }
 
   @Override
+  @CacheEvict(value = "business", key = "#id")
   public Business deleteBusiness(Business business) {
     return businessRepo.save(business);
   }

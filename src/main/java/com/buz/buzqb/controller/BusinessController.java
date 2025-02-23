@@ -61,7 +61,7 @@ public class BusinessController {
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getBusinessById(@PathVariable Integer id) {
+  public ResponseEntity<ResponseDto> getBusinessById(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
@@ -108,7 +108,7 @@ public class BusinessController {
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updateBusiness(@PathVariable Integer id,
+  public ResponseEntity<ResponseDto> updateBusiness(@PathVariable Long id,
       @RequestBody BusinessRequest businessRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
@@ -140,7 +140,7 @@ public class BusinessController {
    * @return
    */
   @DeleteMapping("/{id}")
-  public ResponseEntity<ResponseDto> patchBusiness(@PathVariable Integer id) {
+  public ResponseEntity<ResponseDto> patchBusiness(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
