@@ -32,7 +32,8 @@ public class BusinessServiceImpl implements BusinessService {
   @Cacheable(value = "business",  key = "{#root.methodName, #id}")
   public Optional<Business> getBusinessById(Long id) {
     var data = businessRepo.findById(id);
-    var entity = data.isPresent() ? Hibernate.unproxy(data.get(), Business.class) : null;
+//    var entity = data.isPresent() ? Hibernate.unproxy(data.get(), Business.class) : null;
+    var entity = data.map(business -> Hibernate.unproxy(business, Business.class)).orElse(null);
     return Optional.ofNullable(entity);
   }
 

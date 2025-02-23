@@ -62,7 +62,7 @@ public class BrandController {
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getBrandById(@PathVariable Integer id) {
+  public ResponseEntity<ResponseDto> getBrandById(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
@@ -105,11 +105,11 @@ public class BrandController {
   /**
    * Put Brand
    * @param id
-   * @param roleRequest
+   * @param brandRequest
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updateBrand(@PathVariable Integer id,
+  public ResponseEntity<ResponseDto> updateBrand(@PathVariable Long id,
       @RequestBody BrandRequest brandRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;

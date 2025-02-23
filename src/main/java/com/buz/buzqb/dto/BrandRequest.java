@@ -14,11 +14,11 @@ public class BrandRequest {
   private String description;
   private String status;
 
-  public Brand requestToBrand(BrandRequest roleRequest) {
+  public Brand requestToBrand(BrandRequest brandRequest) {
     Brand role = new Brand();
-    role.setName(roleRequest.getName());
-    role.setDescription(roleRequest.getDescription());
-    role.setStatus(roleRequest.getStatus());
+    role.setName(brandRequest.getName());
+    role.setDescription(brandRequest.getDescription());
+    role.setStatus(brandRequest.getStatus());
     return role;
   }
 }

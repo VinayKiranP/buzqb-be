@@ -9,7 +9,7 @@ public interface BrandService {
 
   List<Brand> getAllBrand();
 
-  Optional<Brand> getBrandById(Integer id);
+  Optional<Brand> getBrandById(Long id);
 
   Brand saveBrand(BrandRequest roleRequest);
 
