@@ -6,6 +6,7 @@ import com.buz.buzqb.repository.BusinessRepo;
 import com.buz.buzqb.service.BusinessService;
 import java.util.List;
 import java.util.Optional;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -28,9 +29,11 @@ public class BusinessServiceImpl implements BusinessService {
   }
 
   @Override
-  @Cacheable(value = "business", key = "#id")
+  @Cacheable(value = "business",  key = "{#root.methodName, #id}")
   public Optional<Business> getBusinessById(Long id) {
-    return businessRepo.findById(id);
+    var data = businessRepo.findById(id);
+    var entity = data.isPresent() ? Hibernate.unproxy(data.get(), Business.class) : null;
+    return Optional.ofNullable(entity);
   }
 
   @Override
