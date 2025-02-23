@@ -90,7 +90,8 @@ public class BrandController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(brandService.saveBrand(brandRequest));
+      Brand brand = brandRequest.requestToBrand(brandRequest);
+      response.setData(brandService.saveBrand(brand));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;

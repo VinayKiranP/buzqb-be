@@ -26,7 +26,7 @@ public class BrandServiceImpl implements BrandService {
   }
 
   @Override
-  @Cacheable("brand")
+//  @Cacheable("brand")
   public List<Brand> getAllBrand() {
     return brandRepo.findAll();
   }
@@ -40,9 +40,8 @@ public class BrandServiceImpl implements BrandService {
   }
 
   @Override
-  @Cacheable(value = "brand")
-  public Brand saveBrand(BrandRequest brandRequest) {
-    Brand brand = brandRequest.requestToBrand(brandRequest);
+  @CachePut(value = "brand", key = "#brand.id")
+  public Brand saveBrand(Brand brand) {
     return brandRepo.save(brand);
   }
 

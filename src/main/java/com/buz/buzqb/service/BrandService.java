@@ -11,7 +11,7 @@ public interface BrandService {
 
   Optional<Brand> getBrandById(Long id);
 
-  Brand saveBrand(BrandRequest roleRequest);
+  Brand saveBrand(Brand brand);
 
   Brand updateBrand(Brand brand);
 }
