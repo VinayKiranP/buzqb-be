@@ -6,8 +6,10 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
+@EnableCaching
 @SecurityScheme(name = Constants.SECURITY_SCHEME_NAME, scheme = Constants.SECURITY_SCHEME, type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
 public class BuzqbBeApplication {
 
