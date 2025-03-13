@@ -1,6 +1,5 @@
 package com.buz.buzqb.service.impl;
 
-import com.buz.buzqb.dto.BrandRequest;
 import com.buz.buzqb.entity.Brand;
 import com.buz.buzqb.repository.BrandRepo;
 import com.buz.buzqb.service.BrandService;

@@ -15,10 +15,10 @@ public class BrandRequest {
   private String status;
 
   public Brand requestToBrand(BrandRequest brandRequest) {
-    Brand role = new Brand();
-    role.setName(brandRequest.getName());
-    role.setDescription(brandRequest.getDescription());
-    role.setStatus(brandRequest.getStatus());
-    return role;
+    Brand brand = new Brand();
+    brand.setName(brandRequest.getName());
+    brand.setDescription(brandRequest.getDescription());
+    brand.setStatus(brandRequest.getStatus());
+    return brand;
   }
 }

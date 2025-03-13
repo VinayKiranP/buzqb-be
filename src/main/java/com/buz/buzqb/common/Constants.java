@@ -15,6 +15,10 @@ public final class Constants {
     public static final String ROLE_URI = "/role";
     public static final String PICTURE_URI = "/picture";
     public static final String BRAND_URI = "/brand";
+    public static final String CATEGORY_URI = "/category";
+    public static final String SUB_CATEGORY_URI = "/subCategory";
+    public static final String ITEM_URI = "/item";
+    public static final String STOCK_URI = "/stock";
 
     // column constants
     public static final String ID = "Id";

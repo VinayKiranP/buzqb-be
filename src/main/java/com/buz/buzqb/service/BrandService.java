@@ -1,6 +1,5 @@
 package com.buz.buzqb.service;
 
-import com.buz.buzqb.dto.BrandRequest;
 import com.buz.buzqb.entity.Brand;
 import java.util.List;
 import java.util.Optional;
