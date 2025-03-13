@@ -1,6 +1,5 @@
 package com.buz.buzqb.service.impl;
 
-import com.buz.buzqb.dto.BusinessRequest;
 import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.repository.BusinessRepo;
 import com.buz.buzqb.service.BusinessService;
