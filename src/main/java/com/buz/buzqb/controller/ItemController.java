@@ -3,9 +3,9 @@ package com.buz.buzqb.controller;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
-import com.buz.buzqb.dto.SubCategoryRequest;
-import com.buz.buzqb.entity.SubCategory;
-import com.buz.buzqb.service.SubCategoryService;
+import com.buz.buzqb.dto.ItemRequest;
+import com.buz.buzqb.entity.Item;
+import com.buz.buzqb.service.ItemService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,105 +22,105 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.SUB_CATEGORY_URI)
+@RequestMapping(Constants.V1_URI + Constants.ITEM_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
-public class SubCategoryController {
+public class ItemController {
 
-  private final SubCategoryService subCategoryService;
-  public static final Logger LOGGER = LoggerFactory.getLogger(SubCategoryController.class.getName());
+  private final ItemService itemService;
+  public static final Logger LOGGER = LoggerFactory.getLogger(ItemController.class.getName());
 
   @Autowired
-  public SubCategoryController(SubCategoryService subCategoryService) {
-    this.subCategoryService = subCategoryService;
+  public ItemController(ItemService itemService) {
+    this.itemService = itemService;
   }
 
   /**
-   * Get SubCategory By Status
+   * Get Item By Status
    * @return
    */
   @GetMapping
-  public ResponseEntity<ResponseDto> getAllSubCategory() {
+  public ResponseEntity<ResponseDto> getAllItem() {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(subCategoryService.getAllSubCategory());
+      response.setData(itemService.getAllItem());
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting SubCategory getAllSubCategory error:{}, exception:{}",
+      LOGGER.error("error in Getting Item getAllItem error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Get SubCategory By Id
+   * Get Item By Id
    * @param id
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getSubCategoryById(@PathVariable Long id) {
+  public ResponseEntity<ResponseDto> getItemById(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(subCategoryService.getSubCategoryById(id));
+      response.setData(itemService.getItemById(id));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting SubCategory getSubCategoryById error:{}, exception:{}",
+      LOGGER.error("error in Getting Item getItemById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Add SubCategory
-   * @param subCategoryRequest
+   * Add Item
+   * @param itemRequest
    * @return
    */
   @PostMapping
-  public ResponseEntity<ResponseDto> addSubCategory(@RequestBody SubCategoryRequest subCategoryRequest) {
+  public ResponseEntity<ResponseDto> addItem(@RequestBody ItemRequest itemRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      SubCategory subCategory = subCategoryRequest.requestToSubCategory(subCategoryRequest);
-      response.setData(subCategoryService.saveSubCategory(subCategory));
+      Item item = itemRequest.requestToItem(itemRequest);
+      response.setData(itemService.saveItem(item));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting SubCategory addSubCategory error:{}, exception:{}", httpStatusCode,
+      LOGGER.error("error in Getting Item addItem error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Put SubCategory
+   * Put Item
    * @param id
-   * @param subCategoryRequest
+   * @param itemRequest
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updateSubCategory(@PathVariable Long id,
-      @RequestBody SubCategoryRequest subCategoryRequest) {
+  public ResponseEntity<ResponseDto> updateItem(@PathVariable Long id,
+      @RequestBody ItemRequest itemRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<SubCategory> business = subCategoryService.getSubCategoryById(id);
+      Optional<Item> business = itemService.getItemById(id);
       if (business.isPresent()) {
-        SubCategory updatedSubCategory = subCategoryRequest.requestToSubCategory(subCategoryRequest);
-        updatedSubCategory.setId(id);
-        response.setData(subCategoryService.updateSubCategory(updatedSubCategory));
+        Item updatedItem = itemRequest.requestToItem(itemRequest);
+        updatedItem.setId(id);
+        response.setData(itemService.updateItem(updatedItem));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
@@ -130,7 +130,7 @@ public class SubCategoryController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting SubCategory updateSubCategory error:{}, exception:{}",
+      LOGGER.error("error in Getting Item updateItem error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
