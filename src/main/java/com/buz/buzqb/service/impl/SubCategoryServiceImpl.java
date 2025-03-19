@@ -30,7 +30,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
   }
 
   @Override
-  @Cacheable(value = "sub_category")
+  @Cacheable(value = "subCategory")
   public Optional<SubCategory> getSubCategoryById(Long id) {
     var data = subCategoryRepo.findById(id);
     var entity = data.map(subCategory -> Hibernate.unproxy(subCategory, SubCategory.class)).orElse(null);
@@ -38,13 +38,13 @@ public class SubCategoryServiceImpl implements SubCategoryService {
   }
 
   @Override
-  @CachePut(value = "sub_category", key = "#sub_category.id")
-  public SubCategory saveSubCategory(SubCategory category) {
-    return subCategoryRepo.save(category);
+  @CachePut(value = "subCategory", key = "#subCategory.id")
+  public SubCategory saveSubCategory(SubCategory subCategory) {
+    return subCategoryRepo.save(subCategory);
   }
 
   @Override
-  @CacheEvict(value = "sub_category", key = "#sub_category.id")
+  @CacheEvict(value = "subCategory", key = "#subCategory.id")
   public SubCategory updateSubCategory(SubCategory subCategory) {
     return subCategoryRepo.save(subCategory);
   }

@@ -39,8 +39,8 @@ public class ItemServiceImpl implements ItemService {
 
   @Override
   @CachePut(value = "item", key = "#item.id")
-  public Item saveItem(Item category) {
-    return itemRepo.save(category);
+  public Item saveItem(Item item) {
+    return itemRepo.save(item);
   }
 
   @Override
