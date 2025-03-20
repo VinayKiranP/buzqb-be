@@ -16,5 +16,5 @@ public class Picture {
   private String name;
   private String description;
   private String type;
-  private String status;
+  private int status;
 }

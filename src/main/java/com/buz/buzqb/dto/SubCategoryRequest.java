@@ -13,7 +13,7 @@ public class SubCategoryRequest {
   private String name;
   private String description;
   private Long categoryId;
-  private String status;
+  private int status;
 
   public SubCategory requestToSubCategory(SubCategoryRequest subCategoryRequest) {
     SubCategory subCategory = new SubCategory();

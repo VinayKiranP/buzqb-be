@@ -17,7 +17,8 @@ public class ItemRequest {
   private String description;
   private Long categoryId;
   private Long subCategoryId;
-  private String status;
+  private Long brandId;
+  private int status;
 
   public Item requestToItem(ItemRequest itemRequest) {
     Item item = new Item();
@@ -25,6 +26,7 @@ public class ItemRequest {
     item.setCode(itemRequest.getCode());
     item.setCategoryId(itemRequest.getCategoryId());
     item.setSubCategoryId(itemRequest.getSubCategoryId());
+    item.setBrandId(itemRequest.getBrandId());
     item.setDescription(itemRequest.getDescription());
     item.setStatus(itemRequest.getStatus());
     return item;

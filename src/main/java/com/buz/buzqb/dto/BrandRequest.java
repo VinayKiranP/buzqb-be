@@ -12,7 +12,7 @@ public class BrandRequest {
   @Size(max = 250, message = "name can't exceed 250 characters")
   private String name;
   private String description;
-  private String status;
+  private int status;
 
   public Brand requestToBrand(BrandRequest brandRequest) {
     Brand brand = new Brand();

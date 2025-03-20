@@ -12,14 +12,18 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "sub_category")
-public class SubCategory implements Serializable {
+@Entity(name = "stock")
+public class Stock implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String name;
+  private String code;
   private String description;
-  private Long categoryId;
+  private Long available;
+  private Long forReserve;
+  private Double mrp;
+  private Double purchasedPrice;
+  private Double sellingPrice;
   private int status;
 }

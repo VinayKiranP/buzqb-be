@@ -12,7 +12,7 @@ public class CategoryRequest {
   @Size(max = 250, message = "name can't exceed 250 characters")
   private String name;
   private String description;
-  private String status;
+  private int status;
 
   public Category requestToCategory(CategoryRequest categoryRequest) {
     Category category = new Category();

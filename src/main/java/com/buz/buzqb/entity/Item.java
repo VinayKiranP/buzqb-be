@@ -23,5 +23,6 @@ public class Item implements Serializable {
   private String description;
   private Long categoryId;
   private Long subCategoryId;
-  private String status;
+  private Long brandId;
+  private int status;
 }

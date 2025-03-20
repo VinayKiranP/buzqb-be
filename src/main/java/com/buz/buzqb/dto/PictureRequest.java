@@ -13,7 +13,7 @@ public class PictureRequest {
   private String name;
   private String description;
   private String type;
-  private String status;
+  private int status;
 
   public Picture requestToPicture(PictureRequest pictureRequest) {
     Picture picture = new Picture();
