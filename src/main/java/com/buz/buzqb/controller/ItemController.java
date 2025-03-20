@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.ITEM_URI)
+@RequestMapping(Constants.V1_URI + Constants.STOCK_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
 public class ItemController {
 
@@ -116,15 +116,15 @@ public class ItemController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<Item> business = itemService.getItemById(id);
-      if (business.isPresent()) {
+      Optional<Item> item = itemService.getItemById(id);
+      if (item.isPresent()) {
         Item updatedItem = itemRequest.requestToItem(itemRequest);
         updatedItem.setId(id);
         response.setData(itemService.updateItem(updatedItem));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(business);
+        response.setData(item);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;

@@ -115,15 +115,15 @@ public class RoleController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<Role> business = roleService.getRoleById(id);
-      if (business.isPresent()) {
+      Optional<Role> role = roleService.getRoleById(id);
+      if (role.isPresent()) {
         Role updatedRole = roleRequest.requestToRole(roleRequest);
         updatedRole.setId(id);
         response.setData(roleService.updateRole(updatedRole));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(business);
+        response.setData(role);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;

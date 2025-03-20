@@ -116,15 +116,15 @@ public class SubCategoryController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<SubCategory> business = subCategoryService.getSubCategoryById(id);
-      if (business.isPresent()) {
+      Optional<SubCategory> subCategory = subCategoryService.getSubCategoryById(id);
+      if (subCategory.isPresent()) {
         SubCategory updatedSubCategory = subCategoryRequest.requestToSubCategory(subCategoryRequest);
         updatedSubCategory.setId(id);
         response.setData(subCategoryService.updateSubCategory(updatedSubCategory));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(business);
+        response.setData(subCategory);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;

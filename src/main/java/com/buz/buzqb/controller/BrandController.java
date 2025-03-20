@@ -116,15 +116,15 @@ public class BrandController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<Brand> business = brandService.getBrandById(id);
-      if (business.isPresent()) {
+      Optional<Brand> brand = brandService.getBrandById(id);
+      if (brand.isPresent()) {
         Brand updatedBrand = brandRequest.requestToBrand(brandRequest);
         updatedBrand.setId(id);
         response.setData(brandService.updateBrand(updatedBrand));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(business);
+        response.setData(brand);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;

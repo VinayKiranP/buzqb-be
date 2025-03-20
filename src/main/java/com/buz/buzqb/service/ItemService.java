@@ -10,7 +10,7 @@ public interface ItemService {
 
   Optional<Item> getItemById(Long id);
 
-  Item saveItem(Item subCategory);
+  Item saveItem(Item item);
 
-  Item updateItem(Item subCategory);
+  Item updateItem(Item item);
 }

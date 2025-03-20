@@ -3,9 +3,9 @@ package com.buz.buzqb.controller;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
-import com.buz.buzqb.dto.CategoryRequest;
-import com.buz.buzqb.entity.Category;
-import com.buz.buzqb.service.CategoryService;
+import com.buz.buzqb.dto.StockRequest;
+import com.buz.buzqb.entity.Stock;
+import com.buz.buzqb.service.StockService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,115 +22,115 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.CATEGORY_URI)
+@RequestMapping(Constants.V1_URI + Constants.ITEM_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
-public class CategoryController {
+public class StockController {
 
-  private final CategoryService categoryService;
-  public static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class.getName());
+  private final StockService stockService;
+  public static final Logger LOGGER = LoggerFactory.getLogger(StockController.class.getName());
 
   @Autowired
-  public CategoryController(CategoryService categoryService) {
-    this.categoryService = categoryService;
+  public StockController(StockService stockService) {
+    this.stockService = stockService;
   }
 
   /**
-   * Get Category By Status
+   * Get Stock By Status
    * @return
    */
   @GetMapping
-  public ResponseEntity<ResponseDto> getAllCategory() {
+  public ResponseEntity<ResponseDto> getAllStock() {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(categoryService.getAllCategory());
+      response.setData(stockService.getAllStock());
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Category getAllCategory error:{}, exception:{}",
+      LOGGER.error("error in Getting Stock getAllStock error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Get Category By Id
+   * Get Stock By Id
    * @param id
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getCategoryById(@PathVariable Long id) {
+  public ResponseEntity<ResponseDto> getStockById(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(categoryService.getCategoryById(id));
+      response.setData(stockService.getStockById(id));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Category getCategoryById error:{}, exception:{}",
+      LOGGER.error("error in Getting Stock getStockById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Add Category
-   * @param categoryRequest
+   * Add Stock
+   * @param stockRequest
    * @return
    */
   @PostMapping
-  public ResponseEntity<ResponseDto> addCategory(@RequestBody CategoryRequest categoryRequest) {
+  public ResponseEntity<ResponseDto> addStock(@RequestBody StockRequest stockRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Category category = categoryRequest.requestToCategory(categoryRequest);
-      response.setData(categoryService.saveCategory(category));
+      Stock stock = stockRequest.requestToStock(stockRequest);
+      response.setData(stockService.saveStock(stock));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Brand addBrand error:{}, exception:{}", httpStatusCode,
+      LOGGER.error("error in Getting Stock addStock error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Put Brand
+   * Put Stock
    * @param id
-   * @param categoryRequest
+   * @param stockRequest
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updateBrand(@PathVariable Long id,
-      @RequestBody CategoryRequest categoryRequest) {
+  public ResponseEntity<ResponseDto> updateStock(@PathVariable Long id,
+      @RequestBody StockRequest stockRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<Category> category = categoryService.getCategoryById(id);
-      if (category.isPresent()) {
-        Category updatedBrand = categoryRequest.requestToCategory(categoryRequest);
-        updatedBrand.setId(id);
-        response.setData(categoryService.updateCategory(updatedBrand));
+      Optional<Stock> stock = stockService.getStockById(id);
+      if (stock.isPresent()) {
+        Stock updatedStock = stockRequest.requestToStock(stockRequest);
+        updatedStock.setId(id);
+        response.setData(stockService.updateStock(updatedStock));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(category);
+        response.setData(stock);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Brand updateBrand error:{}, exception:{}",
+      LOGGER.error("error in Getting Stock updateStock error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

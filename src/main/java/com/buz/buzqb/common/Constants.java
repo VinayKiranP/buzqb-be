@@ -41,5 +41,5 @@ public final class Constants {
 
     // security constants
     public static final String SECURITY_SCHEME = "Bearer";
-    public static final String SECURITY_SCHEME_NAME = "buzqbbeapi";
+    public static final String SECURITY_SCHEME_NAME = "CUG_auth";
 }
