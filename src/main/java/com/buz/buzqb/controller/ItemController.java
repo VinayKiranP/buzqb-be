@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.STOCK_URI)
+@RequestMapping(Constants.V1_URI + Constants.ITEM_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
 public class ItemController {
 

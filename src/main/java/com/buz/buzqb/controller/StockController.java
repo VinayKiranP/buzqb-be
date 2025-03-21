@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.ITEM_URI)
+@RequestMapping(Constants.V1_URI + Constants.STOCK_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
 public class StockController {
 
@@ -44,8 +44,11 @@ public class StockController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
+      long startTime = System.currentTimeMillis();
       response.setData(stockService.getAllStock());
       response.setSuccess(true);
+      long endTime = System.currentTimeMillis();
+      LOGGER.info("Time Taken to get all stock: {}", endTime - startTime);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
