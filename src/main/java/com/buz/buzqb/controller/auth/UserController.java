@@ -45,7 +45,6 @@ public class UserController {
    */
   public Business authenticatedBusiness() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    Business currentUser = (Business) authentication.getPrincipal();
-    return currentUser;
+    return (Business) authentication.getPrincipal();
   }
 }
