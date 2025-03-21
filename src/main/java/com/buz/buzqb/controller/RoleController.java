@@ -3,7 +3,9 @@ package com.buz.buzqb.controller;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
+import com.buz.buzqb.controller.auth.UserController;
 import com.buz.buzqb.dto.RoleRequest;
+import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.entity.Role;
 import com.buz.buzqb.service.RoleService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -33,6 +35,8 @@ public class RoleController {
   public RoleController(RoleService roleService) {
     this.roleService = roleService;
   }
+  @Autowired
+  private UserController userController;
 
   /**
    * Get Role By Status
@@ -45,6 +49,8 @@ public class RoleController {
 
     try {
       long startTime = System.currentTimeMillis();
+      Business business = userController.authenticatedBusiness();
+      LOGGER.info(Constants.USERS_URI+"user: {}", business);
       response.setData(roleService.getAllRole());
       long endTime = System.currentTimeMillis();
       LOGGER.info(Constants.TimeTakenToExecute+"getAllRole: {}", endTime - startTime);
