@@ -3,9 +3,9 @@ package com.buz.buzqb.controller;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
-import com.buz.buzqb.dto.PictureRequest;
-import com.buz.buzqb.entity.Picture;
-import com.buz.buzqb.service.PictureService;
+import com.buz.buzqb.dto.BrandRequest;
+import com.buz.buzqb.entity.Brand;
+import com.buz.buzqb.service.BrandService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,117 +22,118 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.PICTURE_URI)
+@RequestMapping(Constants.V1_URI + Constants.BRAND_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
-public class PictureController {
+public class BrandController {
 
-  private final PictureService pictureService;
-  public static final Logger LOGGER = LoggerFactory.getLogger(PictureController.class.getName());
+  private final BrandService brandService;
+  public static final Logger LOGGER = LoggerFactory.getLogger(BrandController.class.getName());
 
   @Autowired
-  public PictureController(PictureService pictureService) {
-    this.pictureService = pictureService;
+  public BrandController(BrandService brandService) {
+    this.brandService = brandService;
   }
 
   /**
-   * Get Picture By Status
+   * Get Brand By Status
    * @return
    */
   @GetMapping
-  public ResponseEntity<ResponseDto> getAllPictures() {
+  public ResponseEntity<ResponseDto> getAllBrand() {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
       long startTime = System.currentTimeMillis();
-      response.setData(pictureService.getAllPicture());
+      response.setData(brandService.getAllBrand());
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TimeTakenToExecute+"getAllPicture: {}", endTime - startTime);
+      LOGGER.info(Constants.TimeTakenToExecute+"getAllBrand: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getAllPicture error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getAllBrand error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Get Picture By Id
+   * Get Brand By Id
    * @param id
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getPictureById(@PathVariable Integer id) {
+  public ResponseEntity<ResponseDto> getBrandById(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(pictureService.getPictureById(id));
+      response.setData(brandService.getBrandById(id));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getPictureById error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getBrandById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Add Picture
-   * @param pictureRequest
+   * Add Brand
+   * @param brandRequest
    * @return
    */
   @PostMapping
-  public ResponseEntity<ResponseDto> addPicture(@RequestBody PictureRequest pictureRequest) {
+  public ResponseEntity<ResponseDto> addBrand(@RequestBody BrandRequest brandRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(pictureService.savePicture(pictureRequest));
+      Brand brand = brandRequest.requestToBrand(brandRequest);
+      response.setData(brandService.saveBrand(brand));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"addPicture error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ErrorIn+"addBrand error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Put Picture
+   * Put Brand
    * @param id
-   * @param pictureRequest
+   * @param brandRequest
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updatePicture(@PathVariable Integer id,
-      @RequestBody PictureRequest pictureRequest) {
+  public ResponseEntity<ResponseDto> updateBrand(@PathVariable Long id,
+      @RequestBody BrandRequest brandRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<Picture> picture = pictureService.getPictureById(id);
-      if (picture.isPresent()) {
-        Picture updatedPicture = pictureRequest.requestToPicture(pictureRequest);
-        updatedPicture.setId(id);
-        response.setData(pictureService.updatePicture(updatedPicture));
+      Optional<Brand> brand = brandService.getBrandById(id);
+      if (brand.isPresent()) {
+        Brand updatedBrand = brandRequest.requestToBrand(brandRequest);
+        updatedBrand.setId(id);
+        response.setData(brandService.updateBrand(updatedBrand));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(picture);
+        response.setData(brand);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"updatePicture error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"updateBrand error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

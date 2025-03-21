@@ -43,13 +43,16 @@ public class BusinessController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
+      long startTime = System.currentTimeMillis();
       response.setData(businessService.getAllBusiness());
+      long endTime = System.currentTimeMillis();
+      LOGGER.info(Constants.TimeTakenToExecute+"getAllBusiness: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Business getAllBusiness error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getAllBusiness error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -72,7 +75,7 @@ public class BusinessController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Business getBusinessById error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getBusinessById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -89,13 +92,14 @@ public class BusinessController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(businessService.saveBusiness(businessRequest));
+      Business business = businessRequest.requestToBusiness(businessRequest);
+      response.setData(businessService.saveBusiness(business));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Business addBusiness error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ErrorIn+"addBusiness error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -118,7 +122,7 @@ public class BusinessController {
       if (business.isPresent()) {
         Business updatedBusiness = businessRequest.requestToBusiness(businessRequest);
         updatedBusiness.setId(id);
-        response.setData(businessService.updateBusiness(updatedBusiness));
+        response.setData(businessService.saveBusiness(updatedBusiness));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
@@ -128,7 +132,7 @@ public class BusinessController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Business updateBusiness error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"updateBusiness error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -160,7 +164,7 @@ public class BusinessController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Business deleteBusiness error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"deleteBusiness error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

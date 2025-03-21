@@ -3,9 +3,9 @@ package com.buz.buzqb.controller;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
-import com.buz.buzqb.dto.PictureRequest;
-import com.buz.buzqb.entity.Picture;
-import com.buz.buzqb.service.PictureService;
+import com.buz.buzqb.dto.PermissionRequest;
+import com.buz.buzqb.entity.Permission;
+import com.buz.buzqb.service.PermissionService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,117 +22,118 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.PICTURE_URI)
+@RequestMapping(Constants.V1_URI + Constants.PERMISSION_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
-public class PictureController {
+public class PermissionController {
 
-  private final PictureService pictureService;
-  public static final Logger LOGGER = LoggerFactory.getLogger(PictureController.class.getName());
+  private final PermissionService permissionService;
+  public static final Logger LOGGER = LoggerFactory.getLogger(PermissionController.class.getName());
 
   @Autowired
-  public PictureController(PictureService pictureService) {
-    this.pictureService = pictureService;
+  public PermissionController(PermissionService permissionService) {
+    this.permissionService = permissionService;
   }
 
   /**
-   * Get Picture By Status
+   * Get Permission By Status
    * @return
    */
   @GetMapping
-  public ResponseEntity<ResponseDto> getAllPictures() {
+  public ResponseEntity<ResponseDto> getAllPermission() {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
       long startTime = System.currentTimeMillis();
-      response.setData(pictureService.getAllPicture());
+      response.setData(permissionService.getAllPermission());
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TimeTakenToExecute+"getAllPicture: {}", endTime - startTime);
+      LOGGER.info(Constants.TimeTakenToExecute+"getAllPermission: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getAllPicture error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getAllPermission error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Get Picture By Id
+   * Get Permission By Id
    * @param id
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getPictureById(@PathVariable Integer id) {
+  public ResponseEntity<ResponseDto> getPermissionById(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(pictureService.getPictureById(id));
+      response.setData(permissionService.getPermissionById(id));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getPictureById error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getPermissionById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Add Picture
-   * @param pictureRequest
+   * Add Permission
+   * @param permissionRequest
    * @return
    */
   @PostMapping
-  public ResponseEntity<ResponseDto> addPicture(@RequestBody PictureRequest pictureRequest) {
+  public ResponseEntity<ResponseDto> addPermission(@RequestBody PermissionRequest permissionRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(pictureService.savePicture(pictureRequest));
+      Permission permission = permissionRequest.requestToPermission(permissionRequest);
+      response.setData(permissionService.savePermission(permission));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"addPicture error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ErrorIn+"addPermission error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Put Picture
+   * Put Permission
    * @param id
-   * @param pictureRequest
+   * @param permissionRequest
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updatePicture(@PathVariable Integer id,
-      @RequestBody PictureRequest pictureRequest) {
+  public ResponseEntity<ResponseDto> updatePermission(@PathVariable Long id,
+      @RequestBody PermissionRequest permissionRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<Picture> picture = pictureService.getPictureById(id);
-      if (picture.isPresent()) {
-        Picture updatedPicture = pictureRequest.requestToPicture(pictureRequest);
-        updatedPicture.setId(id);
-        response.setData(pictureService.updatePicture(updatedPicture));
+      Optional<Permission> permission = permissionService.getPermissionById(id);
+      if (permission.isPresent()) {
+        Permission updatedPermission = permissionRequest.requestToPermission(permissionRequest);
+        updatedPermission.setId(id);
+        response.setData(permissionService.updatePermission(updatedPermission));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(picture);
+        response.setData(permission);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"updatePicture error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"updateBusiness error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

@@ -3,9 +3,9 @@ package com.buz.buzqb.controller;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
-import com.buz.buzqb.dto.PictureRequest;
-import com.buz.buzqb.entity.Picture;
-import com.buz.buzqb.service.PictureService;
+import com.buz.buzqb.dto.CategoryRequest;
+import com.buz.buzqb.entity.Category;
+import com.buz.buzqb.service.CategoryService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,117 +22,118 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.PICTURE_URI)
+@RequestMapping(Constants.V1_URI + Constants.CATEGORY_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
-public class PictureController {
+public class CategoryController {
 
-  private final PictureService pictureService;
-  public static final Logger LOGGER = LoggerFactory.getLogger(PictureController.class.getName());
+  private final CategoryService categoryService;
+  public static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class.getName());
 
   @Autowired
-  public PictureController(PictureService pictureService) {
-    this.pictureService = pictureService;
+  public CategoryController(CategoryService categoryService) {
+    this.categoryService = categoryService;
   }
 
   /**
-   * Get Picture By Status
+   * Get Category By Status
    * @return
    */
   @GetMapping
-  public ResponseEntity<ResponseDto> getAllPictures() {
+  public ResponseEntity<ResponseDto> getAllCategory() {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
       long startTime = System.currentTimeMillis();
-      response.setData(pictureService.getAllPicture());
+      response.setData(categoryService.getAllCategory());
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TimeTakenToExecute+"getAllPicture: {}", endTime - startTime);
+      LOGGER.info(Constants.TimeTakenToExecute+"getAllCategory: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getAllPicture error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getAllCategory error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Get Picture By Id
+   * Get Category By Id
    * @param id
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getPictureById(@PathVariable Integer id) {
+  public ResponseEntity<ResponseDto> getCategoryById(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(pictureService.getPictureById(id));
+      response.setData(categoryService.getCategoryById(id));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getPictureById error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getCategoryById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Add Picture
-   * @param pictureRequest
+   * Add Category
+   * @param categoryRequest
    * @return
    */
   @PostMapping
-  public ResponseEntity<ResponseDto> addPicture(@RequestBody PictureRequest pictureRequest) {
+  public ResponseEntity<ResponseDto> addCategory(@RequestBody CategoryRequest categoryRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(pictureService.savePicture(pictureRequest));
+      Category category = categoryRequest.requestToCategory(categoryRequest);
+      response.setData(categoryService.saveCategory(category));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"addPicture error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ErrorIn+"addBrand error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Put Picture
+   * Put Brand
    * @param id
-   * @param pictureRequest
+   * @param categoryRequest
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updatePicture(@PathVariable Integer id,
-      @RequestBody PictureRequest pictureRequest) {
+  public ResponseEntity<ResponseDto> updateBrand(@PathVariable Long id,
+      @RequestBody CategoryRequest categoryRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<Picture> picture = pictureService.getPictureById(id);
-      if (picture.isPresent()) {
-        Picture updatedPicture = pictureRequest.requestToPicture(pictureRequest);
-        updatedPicture.setId(id);
-        response.setData(pictureService.updatePicture(updatedPicture));
+      Optional<Category> category = categoryService.getCategoryById(id);
+      if (category.isPresent()) {
+        Category updatedBrand = categoryRequest.requestToCategory(categoryRequest);
+        updatedBrand.setId(id);
+        response.setData(categoryService.updateCategory(updatedBrand));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(picture);
+        response.setData(category);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"updatePicture error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"updateBrand error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

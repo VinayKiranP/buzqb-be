@@ -3,9 +3,9 @@ package com.buz.buzqb.controller;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
-import com.buz.buzqb.dto.PictureRequest;
-import com.buz.buzqb.entity.Picture;
-import com.buz.buzqb.service.PictureService;
+import com.buz.buzqb.dto.ItemRequest;
+import com.buz.buzqb.entity.Item;
+import com.buz.buzqb.service.ItemService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,117 +22,118 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.PICTURE_URI)
+@RequestMapping(Constants.V1_URI + Constants.ITEM_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
-public class PictureController {
+public class ItemController {
 
-  private final PictureService pictureService;
-  public static final Logger LOGGER = LoggerFactory.getLogger(PictureController.class.getName());
+  private final ItemService itemService;
+  public static final Logger LOGGER = LoggerFactory.getLogger(ItemController.class.getName());
 
   @Autowired
-  public PictureController(PictureService pictureService) {
-    this.pictureService = pictureService;
+  public ItemController(ItemService itemService) {
+    this.itemService = itemService;
   }
 
   /**
-   * Get Picture By Status
+   * Get Item By Status
    * @return
    */
   @GetMapping
-  public ResponseEntity<ResponseDto> getAllPictures() {
+  public ResponseEntity<ResponseDto> getAllItem() {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
       long startTime = System.currentTimeMillis();
-      response.setData(pictureService.getAllPicture());
+      response.setData(itemService.getAllItem());
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TimeTakenToExecute+"getAllPicture: {}", endTime - startTime);
+      LOGGER.info(Constants.TimeTakenToExecute+"getAllItem: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getAllPicture error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getAllItem error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Get Picture By Id
+   * Get Item By Id
    * @param id
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getPictureById(@PathVariable Integer id) {
+  public ResponseEntity<ResponseDto> getItemById(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(pictureService.getPictureById(id));
+      response.setData(itemService.getItemById(id));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getPictureById error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getItemById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Add Picture
-   * @param pictureRequest
+   * Add Item
+   * @param itemRequest
    * @return
    */
   @PostMapping
-  public ResponseEntity<ResponseDto> addPicture(@RequestBody PictureRequest pictureRequest) {
+  public ResponseEntity<ResponseDto> addItem(@RequestBody ItemRequest itemRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(pictureService.savePicture(pictureRequest));
+      Item item = itemRequest.requestToItem(itemRequest);
+      response.setData(itemService.saveItem(item));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"addPicture error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ErrorIn+"addItem error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Put Picture
+   * Put Item
    * @param id
-   * @param pictureRequest
+   * @param itemRequest
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updatePicture(@PathVariable Integer id,
-      @RequestBody PictureRequest pictureRequest) {
+  public ResponseEntity<ResponseDto> updateItem(@PathVariable Long id,
+      @RequestBody ItemRequest itemRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<Picture> picture = pictureService.getPictureById(id);
-      if (picture.isPresent()) {
-        Picture updatedPicture = pictureRequest.requestToPicture(pictureRequest);
-        updatedPicture.setId(id);
-        response.setData(pictureService.updatePicture(updatedPicture));
+      Optional<Item> item = itemService.getItemById(id);
+      if (item.isPresent()) {
+        Item updatedItem = itemRequest.requestToItem(itemRequest);
+        updatedItem.setId(id);
+        response.setData(itemService.updateItem(updatedItem));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(picture);
+        response.setData(item);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"updatePicture error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"updateItem error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

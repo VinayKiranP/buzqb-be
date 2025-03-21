@@ -8,22 +8,17 @@ import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "role")
-public class Role implements Serializable {
+@Entity(name = "brand")
+public class Brand implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @NonNull
   private String name;
   private String description;
-  @NonNull
   private int status;
-  @NonNull
-  private int priority;
 }

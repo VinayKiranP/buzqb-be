@@ -9,9 +9,9 @@ public interface RoleService {
 
   List<Role> getAllRole();
 
-  Optional<Role> getRoleById(Integer id);
+  Optional<Role> getRoleById(Long id);
 
-  Role saveRole(RoleRequest roleRequest);
+  Role saveRole(Role role);
 
   Role updateRole(Role role);
 }

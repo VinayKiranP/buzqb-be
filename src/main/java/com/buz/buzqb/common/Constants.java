@@ -14,6 +14,12 @@ public final class Constants {
     public static final String BUSINESS_URI = "/business";
     public static final String ROLE_URI = "/role";
     public static final String PICTURE_URI = "/picture";
+    public static final String BRAND_URI = "/brand";
+    public static final String CATEGORY_URI = "/category";
+    public static final String SUB_CATEGORY_URI = "/subCategory";
+    public static final String ITEM_URI = "/item";
+    public static final String STOCK_URI = "/stock";
+    public static final String PERMISSION_URI = "/permission";
 
     // column constants
     public static final String ID = "Id";
@@ -36,5 +42,17 @@ public final class Constants {
 
     // security constants
     public static final String SECURITY_SCHEME = "Bearer";
-    public static final String SECURITY_SCHEME_NAME = "buzqbbeapi";
+    public static final String SECURITY_SCHEME_NAME = "buzAuth";
+
+    // error constants
+    public static final String ErrorIn = "EI_";
+
+    // info constants
+    public static final String TimeTakenToExecute = "TTTE_";
+
+    // permission constants
+    public static final String READ = "R";
+    public static final String EDIT = "E";
+    public static final String ADD = "A";
+    public static final String DELETE = "D";
 }

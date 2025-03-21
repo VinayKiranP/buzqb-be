@@ -2,6 +2,7 @@ package com.buz.buzqb.config;
 
 
 import com.buz.buzqb.config.auth.filters.JwtAuthenticationFilter;
+import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -56,9 +57,10 @@ public class SecurityConfiguration {
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
 
-    configuration.setAllowedOrigins(List.of("http://localhost:8005"));
-    configuration.setAllowedMethods(List.of("GET", "POST"));
+    configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:3000/"));
+    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE"));
     configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+    configuration.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
