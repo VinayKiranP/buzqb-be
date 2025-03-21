@@ -4,16 +4,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.io.Serializable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "role")
-public class Role {
+public class Role implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
+  @NonNull
   private String name;
   private String description;
-  private String status;
+  @NonNull
+  private int status;
+  @NonNull
+  private int priority;
 }

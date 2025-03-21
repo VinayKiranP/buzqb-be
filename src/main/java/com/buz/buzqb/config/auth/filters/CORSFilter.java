@@ -16,10 +16,10 @@ import java.io.IOException;
 public class CORSFilter implements Filter {
 
   //  @Value("${app.allowedOrigin}")
-  private String allowedOrigin = "http://localhost:3000";
+  private String allowedOrigin = "http://localhost:3000/";
 
   //  @Value("${app.cspUrl:}")
-  private String cspUrl = "http://localhost:3000";
+  private String cspUrl = "http://localhost:3000/";
 
   @Override
   public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)

@@ -62,7 +62,7 @@ public class RoleController {
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getRoleById(@PathVariable Integer id) {
+  public ResponseEntity<ResponseDto> getRoleById(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
@@ -90,7 +90,8 @@ public class RoleController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(roleService.saveRole(roleRequest));
+      Role role = roleRequest.requestToRole(roleRequest);
+      response.setData(roleService.saveRole(role));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -109,7 +110,7 @@ public class RoleController {
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updateRole(@PathVariable Integer id,
+  public ResponseEntity<ResponseDto> updateRole(@PathVariable Long id,
       @RequestBody RoleRequest roleRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
