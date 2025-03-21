@@ -44,13 +44,16 @@ public class SubCategoryController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
+      long startTime = System.currentTimeMillis();
       response.setData(subCategoryService.getAllSubCategory());
+      long endTime = System.currentTimeMillis();
+      LOGGER.info(Constants.TimeTakenToExecute+"getAllSubCategory: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting SubCategory getAllSubCategory error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getAllSubCategory error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -73,7 +76,7 @@ public class SubCategoryController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting SubCategory getSubCategoryById error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getSubCategoryById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -97,7 +100,7 @@ public class SubCategoryController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting SubCategory addSubCategory error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ErrorIn+"addSubCategory error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -130,7 +133,7 @@ public class SubCategoryController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting SubCategory updateSubCategory error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"updateSubCategory error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

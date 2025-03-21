@@ -44,13 +44,16 @@ public class ItemController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
+      long startTime = System.currentTimeMillis();
       response.setData(itemService.getAllItem());
+      long endTime = System.currentTimeMillis();
+      LOGGER.info(Constants.TimeTakenToExecute+"getAllItem: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Item getAllItem error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getAllItem error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -73,7 +76,7 @@ public class ItemController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Item getItemById error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getItemById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -97,7 +100,7 @@ public class ItemController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Item addItem error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ErrorIn+"addItem error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -130,7 +133,7 @@ public class ItemController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Item updateItem error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"updateItem error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

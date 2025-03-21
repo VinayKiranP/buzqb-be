@@ -3,9 +3,9 @@ package com.buz.buzqb.controller;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
-import com.buz.buzqb.dto.RoleRequest;
-import com.buz.buzqb.entity.Role;
-import com.buz.buzqb.service.RoleService;
+import com.buz.buzqb.dto.PermissionRequest;
+import com.buz.buzqb.entity.Permission;
+import com.buz.buzqb.service.PermissionService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,112 +22,112 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.ROLE_URI)
+@RequestMapping(Constants.V1_URI + Constants.PERMISSION_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
-public class RoleController {
+public class PermissionController {
 
-  private final RoleService roleService;
-  public static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class.getName());
+  private final PermissionService permissionService;
+  public static final Logger LOGGER = LoggerFactory.getLogger(PermissionController.class.getName());
 
   @Autowired
-  public RoleController(RoleService roleService) {
-    this.roleService = roleService;
+  public PermissionController(PermissionService permissionService) {
+    this.permissionService = permissionService;
   }
 
   /**
-   * Get Role By Status
+   * Get Permission By Status
    * @return
    */
   @GetMapping
-  public ResponseEntity<ResponseDto> getAllRole() {
+  public ResponseEntity<ResponseDto> getAllPermission() {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
       long startTime = System.currentTimeMillis();
-      response.setData(roleService.getAllRole());
+      response.setData(permissionService.getAllPermission());
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TimeTakenToExecute+"getAllRole: {}", endTime - startTime);
+      LOGGER.info(Constants.TimeTakenToExecute+"getAllPermission: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getAllRole error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getAllPermission error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Get Role By Id
+   * Get Permission By Id
    * @param id
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getRoleById(@PathVariable Long id) {
+  public ResponseEntity<ResponseDto> getPermissionById(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(roleService.getRoleById(id));
+      response.setData(permissionService.getPermissionById(id));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getRoleById error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getPermissionById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Add Role
-   * @param roleRequest
+   * Add Permission
+   * @param permissionRequest
    * @return
    */
   @PostMapping
-  public ResponseEntity<ResponseDto> addRole(@RequestBody RoleRequest roleRequest) {
+  public ResponseEntity<ResponseDto> addPermission(@RequestBody PermissionRequest permissionRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Role role = roleRequest.requestToRole(roleRequest);
-      response.setData(roleService.saveRole(role));
+      Permission permission = permissionRequest.requestToPermission(permissionRequest);
+      response.setData(permissionService.savePermission(permission));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"addRole error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ErrorIn+"addPermission error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Put Role
+   * Put Permission
    * @param id
-   * @param roleRequest
+   * @param permissionRequest
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updateRole(@PathVariable Long id,
-      @RequestBody RoleRequest roleRequest) {
+  public ResponseEntity<ResponseDto> updatePermission(@PathVariable Long id,
+      @RequestBody PermissionRequest permissionRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<Role> role = roleService.getRoleById(id);
-      if (role.isPresent()) {
-        Role updatedRole = roleRequest.requestToRole(roleRequest);
-        updatedRole.setId(id);
-        response.setData(roleService.updateRole(updatedRole));
+      Optional<Permission> permission = permissionService.getPermissionById(id);
+      if (permission.isPresent()) {
+        Permission updatedPermission = permissionRequest.requestToPermission(permissionRequest);
+        updatedPermission.setId(id);
+        response.setData(permissionService.updatePermission(updatedPermission));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(role);
+        response.setData(permission);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;

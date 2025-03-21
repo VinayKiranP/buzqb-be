@@ -44,13 +44,16 @@ public class BrandController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
+      long startTime = System.currentTimeMillis();
       response.setData(brandService.getAllBrand());
+      long endTime = System.currentTimeMillis();
+      LOGGER.info(Constants.TimeTakenToExecute+"getAllBrand: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Brand getAllBrand error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getAllBrand error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -73,7 +76,7 @@ public class BrandController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Brand getBrandById error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getBrandById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -97,7 +100,7 @@ public class BrandController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Brand addBrand error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ErrorIn+"addBrand error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -130,7 +133,7 @@ public class BrandController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Brand updateBrand error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"updateBrand error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

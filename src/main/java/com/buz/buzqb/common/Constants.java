@@ -19,6 +19,7 @@ public final class Constants {
     public static final String SUB_CATEGORY_URI = "/subCategory";
     public static final String ITEM_URI = "/item";
     public static final String STOCK_URI = "/stock";
+    public static final String PERMISSION_URI = "/permission";
 
     // column constants
     public static final String ID = "Id";
@@ -41,5 +42,17 @@ public final class Constants {
 
     // security constants
     public static final String SECURITY_SCHEME = "Bearer";
-    public static final String SECURITY_SCHEME_NAME = "CUG_auth";
+    public static final String SECURITY_SCHEME_NAME = "buzAuth";
+
+    // error constants
+    public static final String ErrorIn = "EI_";
+
+    // info constants
+    public static final String TimeTakenToExecute = "TTTE_";
+
+    // permission constants
+    public static final String READ = "R";
+    public static final String EDIT = "E";
+    public static final String ADD = "A";
+    public static final String DELETE = "D";
 }

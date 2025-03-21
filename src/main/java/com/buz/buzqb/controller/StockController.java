@@ -46,14 +46,14 @@ public class StockController {
     try {
       long startTime = System.currentTimeMillis();
       response.setData(stockService.getAllStock());
-      response.setSuccess(true);
       long endTime = System.currentTimeMillis();
-      LOGGER.info("Time Taken to get all stock: {}", endTime - startTime);
+      LOGGER.info(Constants.TimeTakenToExecute+"getAllStock: {}", endTime - startTime);
+      response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Stock getAllStock error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getAllStock error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -76,7 +76,7 @@ public class StockController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Stock getStockById error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"getStockById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -100,7 +100,7 @@ public class StockController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Stock addStock error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ErrorIn+"addStock error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -133,7 +133,7 @@ public class StockController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error("error in Getting Stock updateStock error:{}, exception:{}",
+      LOGGER.error(Constants.ErrorIn+"updateStock error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
