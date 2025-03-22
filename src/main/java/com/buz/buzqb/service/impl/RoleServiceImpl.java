@@ -51,11 +51,6 @@ public class RoleServiceImpl implements RoleService {
 
   @Override
   public List<Role> getAllRoleForBusiness(Long roleId) {
-    // String query = "SELECT r FROM role r WHERE r.priority != :zero OR r.priority != :one";
-    // return entityManager.createQuery(query, Role.class)
-    //     .setParameter("zero", 0)
-    //     .setParameter("one", 1)
-    //     .getResultList();
     return roleRepo.findByPriorityNotIn(roleId);
   }
 }
