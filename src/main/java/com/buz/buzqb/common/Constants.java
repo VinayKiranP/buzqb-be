@@ -49,6 +49,7 @@ public final class Constants {
 
     // info constants
     public static final String TimeTakenToExecute = "TTTE_";
+    public static final Long TWO = 2L;
 
     // permission constants
     public static final String READ = "R";

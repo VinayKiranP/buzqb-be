@@ -1,8 +1,6 @@
 package com.buz.buzqb.service.impl;
 
-import com.buz.buzqb.dto.RoleRequest;
 import com.buz.buzqb.entity.Role;
-import com.buz.buzqb.entity.Stock;
 import com.buz.buzqb.repository.RoleRepo;
 import com.buz.buzqb.service.RoleService;
 import java.util.List;
@@ -49,5 +47,15 @@ public class RoleServiceImpl implements RoleService {
   @CacheEvict(value = "role", key = "#role.id")
   public Role updateRole(Role role) {
     return roleRepo.save(role);
+  }
+
+  @Override
+  public List<Role> getAllRoleForBusiness(Long roleId) {
+    // String query = "SELECT r FROM role r WHERE r.priority != :zero OR r.priority != :one";
+    // return entityManager.createQuery(query, Role.class)
+    //     .setParameter("zero", 0)
+    //     .setParameter("one", 1)
+    //     .getResultList();
+    return roleRepo.findByPriorityNotIn(roleId);
   }
 }

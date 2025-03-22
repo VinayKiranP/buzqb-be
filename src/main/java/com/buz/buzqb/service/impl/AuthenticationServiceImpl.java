@@ -49,6 +49,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     business.setMobile(registerUserRequest.getMobile());
     business.setStatus(Constants.EMAIL_VERIFICATION_PENDING);
     business.setPassword(passwordEncoder.encode(registerUserRequest.getPassword()));
+    business.setRoleId(Constants.TWO);
     return businessRepo.save(business);
   }
 

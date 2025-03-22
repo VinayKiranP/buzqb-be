@@ -53,6 +53,7 @@ public class Business implements UserDetails, Serializable {
   private String about;
   private String provider;
   private String status;
+  private Long roleId;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

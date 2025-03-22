@@ -1,6 +1,5 @@
 package com.buz.buzqb.service;
 
-import com.buz.buzqb.dto.RoleRequest;
 import com.buz.buzqb.entity.Role;
 import java.util.List;
 import java.util.Optional;
@@ -14,4 +13,6 @@ public interface RoleService {
   Role saveRole(Role role);
 
   Role updateRole(Role role);
+
+  List<Role> getAllRoleForBusiness(Long roleId);
 }

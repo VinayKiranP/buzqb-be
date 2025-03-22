@@ -144,4 +144,32 @@ public class RoleController {
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
+
+  /**
+   * Get Role By Status
+   * @return
+   */
+  @GetMapping("/list")
+  public ResponseEntity<ResponseDto> getAllRoleForBusiness() {
+    ResponseDto response = new ResponseDto();
+    HttpStatus httpStatusCode = HttpStatus.OK;
+
+    try {
+      Business business = userController.authenticatedBusiness();
+      if (business.getRoleId() == null) {
+        long startTime = System.currentTimeMillis();
+        response.setData(roleService.getAllRoleForBusiness(business.getRoleId()));
+        long endTime = System.currentTimeMillis();
+        LOGGER.info(Constants.TimeTakenToExecute+"getAllRoleForBusiness: {}", endTime - startTime);
+      }
+      response.setSuccess(true);
+    } catch (Exception e) {
+      httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+      response.setErrors(ErrorDto.getErrorFromException(e));
+      response.setSuccess(false);
+      LOGGER.error(Constants.ErrorIn+"getAllRoleForBusiness error:{}, exception:{}",
+          httpStatusCode, ErrorDto.getErrorFromException(e));
+    }
+    return new ResponseEntity<>(response, httpStatusCode);
+  }
 }
