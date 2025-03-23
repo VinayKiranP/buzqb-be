@@ -1,5 +1,6 @@
 package com.buz.buzqb.entity;
 
+import com.buz.buzqb.entity.common.AuditedModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "permission")
-public class Permission implements Serializable {
+public class Permission extends AuditedModel implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
