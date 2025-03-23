@@ -6,12 +6,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
@@ -22,15 +21,15 @@ public class Permission extends AuditedModel implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @NonNull
+  @NotNull
   private String name;
-  @NonNull
+  @NotNull
   @Column(length = 5)
   private String code;
-  @NonNull
+  @NotNull
   private int status;
-  @NonNull
+  @NotNull
   private Long businessId;
-  @NonNull
+  @NotNull
   private Long roleId;
 }

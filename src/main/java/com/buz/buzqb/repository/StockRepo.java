@@ -1,6 +1,5 @@
 package com.buz.buzqb.repository;
 
-import com.buz.buzqb.entity.Role;
 import com.buz.buzqb.entity.Stock;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

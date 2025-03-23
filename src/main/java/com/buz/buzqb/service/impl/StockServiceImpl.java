@@ -1,6 +1,5 @@
 package com.buz.buzqb.service.impl;
 
-import com.buz.buzqb.entity.Role;
 import com.buz.buzqb.entity.Stock;
 import com.buz.buzqb.repository.StockRepo;
 import com.buz.buzqb.service.StockService;
