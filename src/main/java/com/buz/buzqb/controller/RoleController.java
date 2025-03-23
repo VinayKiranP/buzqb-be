@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(Constants.V1_URI + Constants.ROLE_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
-public class RoleController {
+public class RoleController extends BaseController {
 
   private final RoleService roleService;
   public static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class.getName());
@@ -35,8 +35,6 @@ public class RoleController {
   public RoleController(RoleService roleService) {
     this.roleService = roleService;
   }
-  @Autowired
-  private UserController userController;
 
   /**
    * Get Role By Status
@@ -48,9 +46,9 @@ public class RoleController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
+      Business business = authenticatedBusiness();
+      LOGGER.info(Constants.AuthBusiness+"User: {}", business);
       long startTime = System.currentTimeMillis();
-      Business business = userController.authenticatedBusiness();
-      LOGGER.info(Constants.USERS_URI+"user: {}", business);
       response.setData(roleService.getAllRole());
       long endTime = System.currentTimeMillis();
       LOGGER.info(Constants.TimeTakenToExecute+"getAllRole: {}", endTime - startTime);
@@ -155,7 +153,7 @@ public class RoleController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Business business = userController.authenticatedBusiness();
+      Business business = authenticatedBusiness();
       if (business.getRoleId() == null) {
         long startTime = System.currentTimeMillis();
         response.setData(roleService.getAllRoleForBusiness(business.getRoleId()));

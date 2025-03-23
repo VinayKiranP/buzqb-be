@@ -18,6 +18,8 @@ public class StockRequest {
   private Double purchasedPrice;
   private Double sellingPrice;
   private int status;
+  @NotNull
+  private Long businessId;
 
   public Stock requestToStock(StockRequest stockRequest) {
     Stock stock = new Stock();
@@ -29,6 +31,7 @@ public class StockRequest {
     stock.setPurchasedPrice(stockRequest.getPurchasedPrice());
     stock.setSellingPrice(stockRequest.getSellingPrice());
     stock.setStatus(stockRequest.getStatus());
+    stock.setBusinessId(stockRequest.getBusinessId());
     return stock;
   }
 }

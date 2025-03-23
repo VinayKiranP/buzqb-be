@@ -25,5 +25,6 @@ public class Stock implements Serializable {
   private Double mrp;
   private Double purchasedPrice;
   private Double sellingPrice;
-  private int status;
+  private int status = 1;
+  private Long businessId;
 }

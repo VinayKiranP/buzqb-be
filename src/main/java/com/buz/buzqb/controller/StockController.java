@@ -4,6 +4,7 @@ import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
 import com.buz.buzqb.dto.StockRequest;
+import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.entity.Stock;
 import com.buz.buzqb.service.StockService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(Constants.V1_URI + Constants.STOCK_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
-public class StockController {
+public class StockController extends BaseController {
 
   private final StockService stockService;
   public static final Logger LOGGER = LoggerFactory.getLogger(StockController.class.getName());
@@ -44,10 +45,11 @@ public class StockController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
+      Business business = authenticatedBusiness();
       long startTime = System.currentTimeMillis();
-      response.setData(stockService.getAllStock());
+      response.setData(stockService.getAllStockByBusiness(business.getId()));
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TimeTakenToExecute+"getAllStock: {}", endTime - startTime);
+      LOGGER.info(Constants.TimeTakenToExecute+"getAllStockByBusiness: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;

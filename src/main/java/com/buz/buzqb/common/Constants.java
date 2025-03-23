@@ -49,7 +49,12 @@ public final class Constants {
 
     // info constants
     public static final String TimeTakenToExecute = "TTTE_";
-    public static final Long TWO = 2L;
+    public static final String AuthBusiness = "Authenticated_Business_";
+    public static final Long Zero = 1L;
+    public static final Long One = 1L;
+    public static final Long Two = 2L;
+
+
 
     // permission constants
     public static final String READ = "R";

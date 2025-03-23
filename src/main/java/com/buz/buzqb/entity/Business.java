@@ -6,12 +6,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -45,7 +47,7 @@ public class Business implements UserDetails, Serializable {
   private Integer countryId;
   private String pincode;
   @Column(name = "email_verified")
-  private boolean emailVerified;
+  private Boolean emailVerified;
   @Column(name = "profile_pic")
   private String profilePic;
   @Column(name = "provider_user_id")
@@ -54,6 +56,10 @@ public class Business implements UserDetails, Serializable {
   private String provider;
   private String status;
   private Long roleId;
+  @NotNull
+  private int priority;
+  @NotNull
+  private Long businessId;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

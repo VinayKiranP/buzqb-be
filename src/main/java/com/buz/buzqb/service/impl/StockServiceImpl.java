@@ -1,5 +1,6 @@
 package com.buz.buzqb.service.impl;
 
+import com.buz.buzqb.entity.Role;
 import com.buz.buzqb.entity.Stock;
 import com.buz.buzqb.repository.StockRepo;
 import com.buz.buzqb.service.StockService;
@@ -47,5 +48,10 @@ public class StockServiceImpl implements StockService {
   @CacheEvict(value = "stock", key = "#stock.id")
   public Stock updateStock(Stock stock) {
     return stockRepo.save(stock);
+  }
+
+  @Override
+  public List<Stock> getAllStockByBusiness(Long businessId) {
+    return stockRepo.getAllStockByBusiness(businessId);
   }
 }
