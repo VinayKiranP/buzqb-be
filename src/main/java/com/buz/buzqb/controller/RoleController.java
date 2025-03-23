@@ -3,7 +3,6 @@ package com.buz.buzqb.controller;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
-import com.buz.buzqb.controller.auth.UserController;
 import com.buz.buzqb.dto.RoleRequest;
 import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.entity.Role;
@@ -47,17 +46,17 @@ public class RoleController extends BaseController {
 
     try {
       Business business = authenticatedBusiness();
-      LOGGER.info(Constants.AuthBusiness+"User: {}", business);
+      LOGGER.info(Constants.AUTHENTICATED_BUSINESS +"User: {}", business);
       long startTime = System.currentTimeMillis();
       response.setData(roleService.getAllRole());
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TimeTakenToExecute+"getAllRole: {}", endTime - startTime);
+      LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE +"getAllRole: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getAllRole error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getAllRole error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -69,7 +68,7 @@ public class RoleController extends BaseController {
    * @return
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getRoleById(@PathVariable Long id) {
+  public ResponseEntity<ResponseDto> getRoleById(@PathVariable Integer id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
@@ -80,7 +79,7 @@ public class RoleController extends BaseController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getRoleById error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getRoleById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -104,7 +103,7 @@ public class RoleController extends BaseController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"addRole error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ERROR_IN +"addRole error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -117,7 +116,7 @@ public class RoleController extends BaseController {
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updateRole(@PathVariable Long id,
+  public ResponseEntity<ResponseDto> updateRole(@PathVariable Integer id,
       @RequestBody RoleRequest roleRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
@@ -137,7 +136,7 @@ public class RoleController extends BaseController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"updateBusiness error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"updateBusiness error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -158,14 +157,14 @@ public class RoleController extends BaseController {
         long startTime = System.currentTimeMillis();
         response.setData(roleService.getAllRoleForBusiness(business.getRoleId()));
         long endTime = System.currentTimeMillis();
-        LOGGER.info(Constants.TimeTakenToExecute+"getAllRoleForBusiness: {}", endTime - startTime);
+        LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE +"getAllRoleForBusiness: {}", endTime - startTime);
       }
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getAllRoleForBusiness error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getAllRoleForBusiness error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

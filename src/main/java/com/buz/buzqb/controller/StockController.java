@@ -49,13 +49,13 @@ public class StockController extends BaseController {
       long startTime = System.currentTimeMillis();
       response.setData(stockService.getAllStockByBusiness(business.getId()));
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TimeTakenToExecute+"getAllStockByBusiness: {}", endTime - startTime);
+      LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE +"getAllStockByBusiness: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getAllStock error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getAllStock error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -78,7 +78,7 @@ public class StockController extends BaseController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getStockById error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getStockById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -102,7 +102,7 @@ public class StockController extends BaseController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"addStock error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ERROR_IN +"addStock error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -135,7 +135,7 @@ public class StockController extends BaseController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"updateStock error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"updateStock error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

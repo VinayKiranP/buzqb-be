@@ -47,13 +47,13 @@ public class PictureController {
       long startTime = System.currentTimeMillis();
       response.setData(pictureService.getAllPicture());
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TimeTakenToExecute+"getAllPicture: {}", endTime - startTime);
+      LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE +"getAllPicture: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getAllPicture error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getAllPicture error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -76,7 +76,7 @@ public class PictureController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getPictureById error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getPictureById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -99,7 +99,7 @@ public class PictureController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"addPicture error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ERROR_IN +"addPicture error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -132,7 +132,7 @@ public class PictureController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"updatePicture error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"updatePicture error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

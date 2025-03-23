@@ -45,16 +45,12 @@ public final class Constants {
     public static final String SECURITY_SCHEME_NAME = "buzAuth";
 
     // error constants
-    public static final String ErrorIn = "EI_";
+    public static final String ERROR_IN = "EI_";
 
     // info constants
-    public static final String TimeTakenToExecute = "TTTE_";
-    public static final String AuthBusiness = "Authenticated_Business_";
-    public static final Long Zero = 1L;
-    public static final Long One = 1L;
-    public static final Long Two = 2L;
-
-
+    public static final String TIME_TAKEN_TO_EXECUTE = "TTTE_";
+    public static final String AUTHENTICATED_BUSINESS = "Authenticated_Business_";
+    public static final Long ZERO = 0L;
 
     // permission constants
     public static final String READ = "R";

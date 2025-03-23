@@ -8,11 +8,11 @@ public interface RoleService {
 
   List<Role> getAllRole();
 
-  Optional<Role> getRoleById(Long id);
+  Optional<Role> getRoleById(Integer id);
 
   Role saveRole(Role role);
 
   Role updateRole(Role role);
 
-  List<Role> getAllRoleForBusiness(Long roleId);
+  List<Role> getAllRoleForBusiness(Integer roleId);
 }

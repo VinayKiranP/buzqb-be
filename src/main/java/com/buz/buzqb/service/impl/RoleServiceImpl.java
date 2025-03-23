@@ -31,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
 
   @Override
   @Cacheable(value = "role")
-  public Optional<Role> getRoleById(Long id) {
+  public Optional<Role> getRoleById(Integer id) {
     var data = roleRepo.findById(id);
     var entity = data.map(role -> Hibernate.unproxy(role, Role.class)).orElse(null);
     return Optional.ofNullable(entity);
@@ -50,7 +50,7 @@ public class RoleServiceImpl implements RoleService {
   }
 
   @Override
-  public List<Role> getAllRoleForBusiness(Long roleId) {
+  public List<Role> getAllRoleForBusiness(Integer roleId) {
     return roleRepo.findByPriorityNotIn(roleId);
   }
 }

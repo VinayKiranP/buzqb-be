@@ -55,7 +55,7 @@ public class Business implements UserDetails, Serializable {
   private String about;
   private String provider;
   private String status;
-  private Long roleId;
+  private Integer roleId;
   @NotNull
   private int priority;
   @NotNull

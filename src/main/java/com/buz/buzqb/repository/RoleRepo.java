@@ -8,11 +8,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepo extends JpaRepository<Role, Long> {
+public interface RoleRepo extends JpaRepository<Role, Integer> {
 
   //@Query(value = "SELECT * FROM role WHERE priority NOT IN (:priorities)", nativeQuery = true)
   //List<Role> findByPriorityNotIn(@Param("priorities") List<Integer> priorities);
 
   @Query(value = "SELECT * FROM role WHERE priority > (SELECT priority from role where id =:roleId)", nativeQuery = true)
-  List<Role> findByPriorityNotIn(@Param("roleId") Long roleId);
+  List<Role> findByPriorityNotIn(@Param("roleId") Integer roleId);
 }

@@ -47,13 +47,13 @@ public class CategoryController {
       long startTime = System.currentTimeMillis();
       response.setData(categoryService.getAllCategory());
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TimeTakenToExecute+"getAllCategory: {}", endTime - startTime);
+      LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE +"getAllCategory: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getAllCategory error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getAllCategory error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -76,7 +76,7 @@ public class CategoryController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getCategoryById error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getCategoryById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -100,7 +100,7 @@ public class CategoryController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"addBrand error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ERROR_IN +"addBrand error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -133,7 +133,7 @@ public class CategoryController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"updateBrand error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"updateBrand error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
