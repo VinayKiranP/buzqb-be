@@ -6,6 +6,7 @@ import com.buz.buzqb.common.ResponseDto;
 import com.buz.buzqb.dto.StockRequest;
 import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.entity.Stock;
+import com.buz.buzqb.service.StockMovementService;
 import com.buz.buzqb.service.StockService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Optional;
@@ -28,11 +29,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class StockController extends BaseController {
 
   private final StockService stockService;
+  private final StockMovementService stockMovementService;
   public static final Logger LOGGER = LoggerFactory.getLogger(StockController.class.getName());
 
   @Autowired
-  public StockController(StockService stockService) {
+  public StockController(StockService stockService, StockMovementService stockMovementService) {
     this.stockService = stockService;
+    this.stockMovementService = stockMovementService;
   }
 
   /**
@@ -47,9 +50,17 @@ public class StockController extends BaseController {
     try {
       Business business = authenticatedBusiness();
       long startTime = System.currentTimeMillis();
-      response.setData(stockService.getAllStockByBusiness(business.getId()));
-      long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE +"getAllStockByBusiness: {}", endTime - startTime);
+      if (business.getRoleId() > 2) {
+        response.setData(stockMovementService.getAllStockMovementByBusinessNStatus(business.getId(), 0));
+        long endTime = System.currentTimeMillis();
+        LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE + "getAllStockMovementByBusinessNStatus: {}",
+            endTime - startTime);
+      } else {
+        response.setData(stockService.getAllStockByBusiness(business.getId()));
+        long endTime = System.currentTimeMillis();
+        LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE + "getAllStockByBusiness: {}",
+            endTime - startTime);
+      }
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -95,8 +106,13 @@ public class StockController extends BaseController {
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
+      Business business = authenticatedBusiness();
+      if (business.getRoleId() > 2) {
+        response.setData(stockMovementService.saveStockMovement(stockRequest.requestToStockMovement(stockRequest)));
+      } else {
       Stock stock = stockRequest.requestToStock(stockRequest);
       response.setData(stockService.saveStock(stock));
+      }
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;

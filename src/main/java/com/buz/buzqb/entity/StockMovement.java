@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "stock")
-public class Stock extends AuditedModel implements Serializable {
+@Entity(name = "stock_movement")
+public class StockMovement extends AuditedModel implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +28,8 @@ public class Stock extends AuditedModel implements Serializable {
   private Double mrp;
   private Double purchasedPrice;
   private Double sellingPrice;
-  private int status = 1;
+  private int status = 0;
   private Long businessId;
+  private Long approvedBy;
+  private LocalDateTime approvedDate;
 }
