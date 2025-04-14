@@ -14,6 +14,7 @@ public class SubCategoryRequest {
   private String description;
   private Long categoryId;
   private int status;
+  private Long segmentId;
 
   public SubCategory requestToSubCategory(SubCategoryRequest subCategoryRequest) {
     SubCategory subCategory = new SubCategory();
@@ -21,6 +22,7 @@ public class SubCategoryRequest {
     subCategory.setCategoryId(subCategoryRequest.getCategoryId());
     subCategory.setDescription(subCategoryRequest.getDescription());
     subCategory.setStatus(subCategoryRequest.getStatus());
+    subCategory.setSegmentId(subCategoryRequest.getSegmentId());
     return subCategory;
   }
 }

@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,22 +25,18 @@ public class BusinessServiceImpl implements BusinessService {
   }
 
   @Override
-  @Cacheable(value = "business")
   public Optional<Business> getBusinessById(Long id) {
     var data = businessRepo.findById(id);
-//    var entity = data.isPresent() ? Hibernate.unproxy(data.get(), Business.class) : null;
     var entity = data.map(business -> Hibernate.unproxy(business, Business.class)).orElse(null);
     return Optional.ofNullable(entity);
   }
 
   @Override
-  @CachePut(value = "business", key = "#busines.id")
   public Business saveBusiness(Business business) {
     return businessRepo.save(business);
   }
 
   @Override
-  @CacheEvict(value = "business", key = "#id")
   public Business deleteBusiness(Business business) {
     return businessRepo.save(business);
   }

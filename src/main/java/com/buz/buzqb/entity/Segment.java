@@ -4,19 +4,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.io.Serializable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "picture")
-public class Picture {
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity(name = "segment")
+public class Segment implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
   private String name;
   private String description;
-  private String type;
-  private Long businessId;
-  private int status = 1;
-  private String comment;
+  private int status;
+  private String createdBy;
 }

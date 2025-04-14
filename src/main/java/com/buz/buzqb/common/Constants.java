@@ -20,6 +20,9 @@ public final class Constants {
     public static final String ITEM_URI = "/item";
     public static final String STOCK_URI = "/stock";
     public static final String PERMISSION_URI = "/permission";
+    public static final String POST_URI = "/post";
+    public static final String POST_REPLIES_URI = "/postReplies";
+    public static final String SEGMENT_URI = "/segment";
 
     // column constants
     public static final String ID = "Id";

@@ -14,7 +14,7 @@ public class AuditorAwareConfig extends BaseController {
   public AuditorAware<Long> auditorProvider() {
     //return () -> Optional.ofNullable(
     //    authenticatedBusiness().getRoleId() < 3 ? authenticatedBusiness().getId()
-    //        : authenticatedBusiness().getBusinessId());
+    //        : authenticatedBusiness().getBusinessId()); // Replace this with the actual logic for fetching logged-in user
     return () -> Optional.ofNullable(authenticatedBusiness().getId());
   }
 }
