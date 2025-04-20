@@ -47,13 +47,13 @@ public class ItemController {
       long startTime = System.currentTimeMillis();
       response.setData(itemService.getAllItem());
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TimeTakenToExecute+"getAllItem: {}", endTime - startTime);
+      LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE +"getAllItem: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getAllItem error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getAllItem error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -76,7 +76,7 @@ public class ItemController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"getItemById error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getItemById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -100,7 +100,7 @@ public class ItemController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"addItem error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ERROR_IN +"addItem error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
@@ -133,7 +133,7 @@ public class ItemController {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ErrorIn+"updateItem error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"updateItem error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

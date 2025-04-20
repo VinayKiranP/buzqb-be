@@ -33,6 +33,7 @@ public class ItemServiceImpl implements ItemService {
   @Cacheable(value = "item")
   public Optional<Item> getItemById(Long id) {
     var data = itemRepo.findById(id);
+//    var entity = data.isPresent() ? Hibernate.unproxy(data.get(), Item.class) : null;
     var entity = data.map(item -> Hibernate.unproxy(item, Item.class)).orElse(null);
     return Optional.ofNullable(entity);
   }

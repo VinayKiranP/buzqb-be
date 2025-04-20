@@ -1,8 +1,6 @@
 package com.buz.buzqb.service.impl;
 
-import com.buz.buzqb.dto.RoleRequest;
 import com.buz.buzqb.entity.Role;
-import com.buz.buzqb.entity.Stock;
 import com.buz.buzqb.repository.RoleRepo;
 import com.buz.buzqb.service.RoleService;
 import java.util.List;
@@ -33,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
 
   @Override
   @Cacheable(value = "role")
-  public Optional<Role> getRoleById(Long id) {
+  public Optional<Role> getRoleById(Integer id) {
     var data = roleRepo.findById(id);
     var entity = data.map(role -> Hibernate.unproxy(role, Role.class)).orElse(null);
     return Optional.ofNullable(entity);
@@ -49,5 +47,10 @@ public class RoleServiceImpl implements RoleService {
   @CacheEvict(value = "role", key = "#role.id")
   public Role updateRole(Role role) {
     return roleRepo.save(role);
+  }
+
+  @Override
+  public List<Role> getAllRoleForBusiness(Integer roleId) {
+    return roleRepo.findByPriorityNotIn(roleId);
   }
 }

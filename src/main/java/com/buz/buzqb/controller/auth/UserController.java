@@ -38,13 +38,4 @@ public class UserController {
 
     return ResponseEntity.ok(users);
   }
-
-  /**
-   * To get the Logged in authenticated business
-   * @return Business
-   */
-  public Business authenticatedBusiness() {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    return (Business) authentication.getPrincipal();
-  }
 }

@@ -1,7 +1,8 @@
-package com.buz.buzqb.service;
+package com.buz.buzqb.service.impl;
 
 import com.buz.buzqb.entity.Permission;
 import com.buz.buzqb.repository.PermissionRepo;
+import com.buz.buzqb.service.PermissionService;
 import java.util.List;
 import java.util.Optional;
 import org.hibernate.Hibernate;

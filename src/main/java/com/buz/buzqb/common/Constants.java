@@ -20,6 +20,9 @@ public final class Constants {
     public static final String ITEM_URI = "/item";
     public static final String STOCK_URI = "/stock";
     public static final String PERMISSION_URI = "/permission";
+    public static final String POST_URI = "/post";
+    public static final String POST_REPLIES_URI = "/postReplies";
+    public static final String SEGMENT_URI = "/segment";
 
     // column constants
     public static final String ID = "Id";
@@ -45,10 +48,12 @@ public final class Constants {
     public static final String SECURITY_SCHEME_NAME = "buzAuth";
 
     // error constants
-    public static final String ErrorIn = "EI_";
+    public static final String ERROR_IN = "EI_";
 
     // info constants
-    public static final String TimeTakenToExecute = "TTTE_";
+    public static final String TIME_TAKEN_TO_EXECUTE = "TTTE_";
+    public static final String AUTHENTICATED_BUSINESS = "Authenticated_Business_";
+    public static final Long ZERO = 0L;
 
     // permission constants
     public static final String READ = "R";

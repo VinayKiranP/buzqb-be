@@ -13,12 +13,14 @@ public class CategoryRequest {
   private String name;
   private String description;
   private int status;
+  private Long segmentId;
 
   public Category requestToCategory(CategoryRequest categoryRequest) {
     Category category = new Category();
     category.setName(categoryRequest.getName());
     category.setDescription(categoryRequest.getDescription());
     category.setStatus(categoryRequest.getStatus());
+    category.setSegmentId(categoryRequest.getSegmentId());
     return category;
   }
 }

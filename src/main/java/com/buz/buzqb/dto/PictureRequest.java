@@ -12,6 +12,7 @@ public class PictureRequest {
   @Size(max = 250, message = "name can't exceed 250 characters")
   private String name;
   private String description;
+  private Long businessId;
   private String type;
   private int status;
 
@@ -20,6 +21,7 @@ public class PictureRequest {
     picture.setName(pictureRequest.getName());
     picture.setType(pictureRequest.getType());
     picture.setDescription(pictureRequest.getDescription());
+    picture.setBusinessId(pictureRequest.getBusinessId());
     picture.setStatus(pictureRequest.getStatus());
     return picture;
   }

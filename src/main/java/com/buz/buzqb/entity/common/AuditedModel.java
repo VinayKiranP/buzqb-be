@@ -1,48 +1,28 @@
 package com.buz.buzqb.entity.common;
 
-import com.buz.buzqb.entity.Business;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import java.io.Serializable;
-import java.util.Date;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.RelationTargetAuditMode;
+import java.time.LocalDateTime;
+import lombok.Data;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @MappedSuperclass
-public class AuditedModel implements Serializable {
-
-  @Audited
-  @Column(name = "created_date_time", columnDefinition = "DATETIME")
-  @Temporal(TemporalType.TIMESTAMP)
-  @CreationTimestamp
-  @Restricted
-  protected Date createdDateTime;
-
-  @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "created_by")
-  @Restricted
-  @JsonProperty
-  protected Business createdBy;
-
-  @Audited
-  @Column(name = "updated_date_time", columnDefinition = "DATETIME")
-  @Temporal(TemporalType.TIMESTAMP)
-  @UpdateTimestamp
-  protected Date updatedDateTime;
-
-  @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "updated_by")
-  @JsonProperty
-  protected Business updatedBy;
-
+@Data
+@EntityListeners(AuditingEntityListener.class)
+public abstract class AuditedModel {
+  @CreatedBy
+  @Column(updatable = false)
+  private Long createdBy;
+  @LastModifiedBy
+  private Long updatedBy;
+  @CreatedDate
+  @Column(updatable = false)
+  private LocalDateTime createdDate;
+  @LastModifiedDate
+  private LocalDateTime updatedDate;
 }

@@ -3,10 +3,9 @@ package com.buz.buzqb.controller;
 import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.common.ErrorDto;
 import com.buz.buzqb.common.ResponseDto;
-import com.buz.buzqb.dto.RoleRequest;
-import com.buz.buzqb.entity.Business;
-import com.buz.buzqb.entity.Role;
-import com.buz.buzqb.service.RoleService;
+import com.buz.buzqb.dto.PostRepliesRequest;
+import com.buz.buzqb.entity.PostReplies;
+import com.buz.buzqb.service.PostRepliesService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -23,148 +22,118 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.V1_URI + Constants.ROLE_URI)
+@RequestMapping(Constants.V1_URI + Constants.POST_REPLIES_URI)
 @SecurityRequirement(name = Constants.SECURITY_SCHEME_NAME)
-public class RoleController extends BaseController {
+public class PostRepliesController {
 
-  private final RoleService roleService;
-  public static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class.getName());
+  private final PostRepliesService postRepliesService;
+  public static final Logger LOGGER = LoggerFactory.getLogger(PostRepliesController.class.getName());
 
   @Autowired
-  public RoleController(RoleService roleService) {
-    this.roleService = roleService;
+  public PostRepliesController(PostRepliesService postRepliesService) {
+    this.postRepliesService = postRepliesService;
   }
 
   /**
-   * Get Role By Status
+   * Get PostReplies By Status
    * @return
    */
-  @GetMapping
-  public ResponseEntity<ResponseDto> getAllRole() {
+  @GetMapping("/{postId}")
+  public ResponseEntity<ResponseDto> getAllPostReplies(@PathVariable Long postId) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Business business = authenticatedBusiness();
-      LOGGER.info(Constants.AUTHENTICATED_BUSINESS +"User: {}", business);
       long startTime = System.currentTimeMillis();
-      response.setData(roleService.getAllRole());
+      response.setData(postRepliesService.findAllByPostIdOrderByCreatedByDesc(postId));
       long endTime = System.currentTimeMillis();
-      LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE +"getAllRole: {}", endTime - startTime);
+      LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE +"getAllPostReplies: {}", endTime - startTime);
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ERROR_IN +"getAllRole error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getAllPostReplies error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Get Role By Id
+   * Get PostReplies By Id
    * @param id
    * @return
    */
-  @GetMapping("/{id}")
-  public ResponseEntity<ResponseDto> getRoleById(@PathVariable Integer id) {
+  @GetMapping("/get/{id}")
+  public ResponseEntity<ResponseDto> getPostRepliesById(@PathVariable Long id) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      response.setData(roleService.getRoleById(id));
+      response.setData(postRepliesService.getPostRepliesById(id));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ERROR_IN +"getRoleById error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"getPostRepliesById error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Add Role
-   * @param roleRequest
+   * Add PostReplies
+   * @param postRepliesRequest
    * @return
    */
   @PostMapping
-  public ResponseEntity<ResponseDto> addRole(@RequestBody RoleRequest roleRequest) {
+  public ResponseEntity<ResponseDto> addPostReplies(@RequestBody PostRepliesRequest postRepliesRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Role role = roleRequest.requestToRole(roleRequest);
-      response.setData(roleService.saveRole(role));
+      PostReplies postReplies = postRepliesRequest.requestToPostReplies(postRepliesRequest);
+      response.setData(postRepliesService.savePostReplies(postReplies));
       response.setSuccess(true);
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ERROR_IN +"addRole error:{}, exception:{}", httpStatusCode,
+      LOGGER.error(Constants.ERROR_IN +"addPostReplies error:{}, exception:{}", httpStatusCode,
           ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);
   }
 
   /**
-   * Put Role
+   * Put PostReplies
    * @param id
-   * @param roleRequest
+   * @param postRepliesRequest
    * @return
    */
   @PutMapping("/{id}")
-  public ResponseEntity<ResponseDto> updateRole(@PathVariable Integer id,
-      @RequestBody RoleRequest roleRequest) {
+  public ResponseEntity<ResponseDto> updatePostReplies(@PathVariable Long id,
+      @RequestBody PostRepliesRequest postRepliesRequest) {
     ResponseDto response = new ResponseDto();
     HttpStatus httpStatusCode = HttpStatus.OK;
 
     try {
-      Optional<Role> role = roleService.getRoleById(id);
-      if (role.isPresent()) {
-        Role updatedRole = roleRequest.requestToRole(roleRequest);
-        updatedRole.setId(id);
-        response.setData(roleService.updateRole(updatedRole));
+      Optional<PostReplies> postReplies = postRepliesService.getPostRepliesById(id);
+      if (postReplies.isPresent()) {
+        PostReplies updatedPostReplies = postRepliesRequest.requestToPostReplies(postRepliesRequest);
+        updatedPostReplies.setId(id);
+        response.setData(postRepliesService.updatePostReplies(updatedPostReplies));
         response.setSuccess(true);
       } else {
         httpStatusCode = HttpStatus.NO_CONTENT;
-        response.setData(role);
+        response.setData(postReplies);
       }
     } catch (Exception e) {
       httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       response.setErrors(ErrorDto.getErrorFromException(e));
       response.setSuccess(false);
-      LOGGER.error(Constants.ERROR_IN +"updateBusiness error:{}, exception:{}",
-          httpStatusCode, ErrorDto.getErrorFromException(e));
-    }
-    return new ResponseEntity<>(response, httpStatusCode);
-  }
-
-  /**
-   * Get Role By Status
-   * @return
-   */
-  @GetMapping("/list")
-  public ResponseEntity<ResponseDto> getAllRoleForBusiness() {
-    ResponseDto response = new ResponseDto();
-    HttpStatus httpStatusCode = HttpStatus.OK;
-
-    try {
-      Business business = authenticatedBusiness();
-      if (business.getRoleId() == null) {
-        long startTime = System.currentTimeMillis();
-        response.setData(roleService.getAllRoleForBusiness(business.getRoleId()));
-        long endTime = System.currentTimeMillis();
-        LOGGER.info(Constants.TIME_TAKEN_TO_EXECUTE +"getAllRoleForBusiness: {}", endTime - startTime);
-      }
-      response.setSuccess(true);
-    } catch (Exception e) {
-      httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-      response.setErrors(ErrorDto.getErrorFromException(e));
-      response.setSuccess(false);
-      LOGGER.error(Constants.ERROR_IN +"getAllRoleForBusiness error:{}, exception:{}",
+      LOGGER.error(Constants.ERROR_IN +"updatePostReplies error:{}, exception:{}",
           httpStatusCode, ErrorDto.getErrorFromException(e));
     }
     return new ResponseEntity<>(response, httpStatusCode);

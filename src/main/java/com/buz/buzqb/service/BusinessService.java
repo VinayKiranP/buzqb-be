@@ -1,6 +1,5 @@
 package com.buz.buzqb.service;
 
-import com.buz.buzqb.dto.BusinessRequest;
 import com.buz.buzqb.entity.Business;
 import java.util.List;
 import java.util.Optional;

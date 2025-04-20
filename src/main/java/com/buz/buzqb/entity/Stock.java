@@ -1,5 +1,7 @@
 package com.buz.buzqb.entity;
 
+import com.buz.buzqb.entity.common.AuditedModel;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,17 +15,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "stock")
-public class Stock implements Serializable {
+public class Stock extends AuditedModel implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @Column(unique = true)
   private String code;
+  private String modelNumber;
   private String description;
   private Long available;
   private Long forReserve;
   private Double mrp;
   private Double purchasedPrice;
   private Double sellingPrice;
-  private int status;
+  private Double tax;
+  private int status = 1;
+  private Long businessId;
 }

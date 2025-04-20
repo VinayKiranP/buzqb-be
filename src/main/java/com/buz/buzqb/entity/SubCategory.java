@@ -1,5 +1,6 @@
 package com.buz.buzqb.entity;
 
+import com.buz.buzqb.entity.common.AuditedModel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,12 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "sub_category")
-public class SubCategory implements Serializable {
+public class SubCategory extends AuditedModel implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
+  private Long segmentId;
   private String description;
   private Long categoryId;
   private int status;

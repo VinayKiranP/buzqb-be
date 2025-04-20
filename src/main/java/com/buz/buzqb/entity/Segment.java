@@ -1,6 +1,5 @@
 package com.buz.buzqb.entity;
 
-import com.buz.buzqb.entity.common.AuditedModel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,19 +12,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "item")
-public class Item extends AuditedModel implements Serializable {
+@Entity(name = "segment")
+public class Segment implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
-  private String code;
-  private Double tax;
   private String description;
-  private Long categoryId;
-  private Long subCategoryId;
-  private Long brandId;
-  private Long businessId;
   private int status;
+  private String createdBy;
 }

@@ -48,4 +48,9 @@ public class StockServiceImpl implements StockService {
   public Stock updateStock(Stock stock) {
     return stockRepo.save(stock);
   }
+
+  @Override
+  public List<Stock> getAllStockByBusiness(Long businessId) {
+    return stockRepo.getAllStockByBusiness(businessId);
+  }
 }

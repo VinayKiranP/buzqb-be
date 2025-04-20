@@ -26,7 +26,7 @@ public class BusinessRequest {
   private Integer stateId;
   private Integer countryId;
   @Size(max = 6, message = "postcode can't exceed 6 characters")
-  private String pincode;
+  private String pinCode;
   private String status;
 
   public Business requestToBusiness(BusinessRequest businessRequest) {
@@ -38,10 +38,9 @@ public class BusinessRequest {
     business.setAddressLine2(businessRequest.getAddressLine2());
     business.setLandmark(businessRequest.getLandmark());
     business.setCity(businessRequest.getCity());
-    business.setPincode(businessRequest.getPincode());
+    business.setPinCode(businessRequest.getPinCode());
     business.setStateId(businessRequest.getStateId());
     business.setCountryId(businessRequest.getCountryId());
-    business.setPincode(businessRequest.getPincode());
     business.setStatus(businessRequest.getStatus());
     return business;
   }

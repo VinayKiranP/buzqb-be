@@ -13,4 +13,6 @@ public interface StockService {
   Stock saveStock(Stock stock);
 
   Stock updateStock(Stock stock);
+
+  List<Stock> getAllStockByBusiness(Long businessId);
 }

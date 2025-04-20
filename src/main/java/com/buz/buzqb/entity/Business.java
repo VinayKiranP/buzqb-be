@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Business implements UserDetails, Serializable {
   @Column(nullable = false)
   private Long id;
   private String name;
+  private String about;
   private String mobile;
   @Column(unique = true, length = 250, nullable = false)
   private String email;
@@ -39,20 +41,25 @@ public class Business implements UserDetails, Serializable {
   private String addressLine2;
   private String landmark;
   private String city;
-  @Column(name = "state_id")
   private Integer stateId;
-  @Column(name = "country_id")
   private Integer countryId;
-  private String pincode;
-  @Column(name = "email_verified")
-  private boolean emailVerified;
-  @Column(name = "profile_pic")
+  private String pinCode;
+  private String gst;
+  // profile pic check fields
   private String profilePic;
-  @Column(name = "provider_user_id")
+  private int profilePicVisibility;
+  private String commentType;
+  private String comment;
+  // user provider check fields and status
   private String providerUserId;
-  private String about;
   private String provider;
-  private String status;
+  private Integer roleId;
+  @NotNull
+  private int priority; // 0-admin, 1-owner, 2-manager, 3-biller, 4-storekeeper, 5-operator
+  @NotNull
+  private Long businessId;
+  private Boolean emailVerified;
+  private String status; // 0-inactive, 1-active, 2-suspended, 3-deleted
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
