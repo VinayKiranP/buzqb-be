@@ -1,5 +1,6 @@
 package com.buz.buzqb.service.impl;
 
+import com.buz.buzqb.dto.auth.ResetUserPasswordRequest;
 import java.util.Optional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -46,6 +47,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     Business business = new Business();
     business.setName(registerUserRequest.getName());
     business.setEmail(registerUserRequest.getEmail());
+    business.setUsername("");
     business.setMobile(registerUserRequest.getMobile());
     business.setStatus(Constants.EMAIL_VERIFICATION_PENDING);
     business.setPassword(passwordEncoder.encode(registerUserRequest.getPassword()));
@@ -88,19 +90,38 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         .orElseThrow();
   }
 
-  /**
-   * Validate Login Request
-   * @param loginUserRequest
-   */
-  private void validateLoginRequest(LoginUserRequest loginUserRequest) {
+  @Override
+  public Business resetPassword(ResetUserPasswordRequest resetUserPasswordRequest) {
+    InvalidValuesException exception = getInvalidValuesException(
+        resetUserPasswordRequest != null, resetUserPasswordRequest.getEmail(),
+        resetUserPasswordRequest.getPassword());
+
+    if (!exception.getMessages().isEmpty()) {
+      throw exception;
+    }
+    Business business = businessRepo.findByEmailOrUsername(
+        resetUserPasswordRequest.getEmail(),
+        resetUserPasswordRequest.getEmail()
+    ).orElseThrow(() -> {
+      InvalidValuesException exception1 = new InvalidValuesException();
+      exception1.put(Constants.EMAIL,
+          ResponseMessageUtils.getNoRecordFoundMessage(Constants.BUSINESS, resetUserPasswordRequest.getEmail()));
+      return exception1;
+    });
+    business.setPassword(passwordEncoder.encode(resetUserPasswordRequest.getPassword()));
+    return businessRepo.save(business);
+  }
+
+  private static InvalidValuesException getInvalidValuesException(boolean resetUserPasswordRequest,
+      String resetUserPasswordRequest1, String resetUserPasswordRequest2) {
     InvalidValuesException exception = new InvalidValuesException();
-    if (loginUserRequest != null) {
-      if (loginUserRequest.getEmail() == null || loginUserRequest.getEmail().isEmpty()) {
+    if (resetUserPasswordRequest) {
+      if (resetUserPasswordRequest1 == null || resetUserPasswordRequest1.isEmpty()) {
         exception.put(Constants.EMAIL,
             ResponseMessageUtils.getFieldNotNullMessage(Constants.EMAIL));
       }
 
-      if (loginUserRequest.getPassword() == null || loginUserRequest.getPassword().isEmpty()) {
+      if (resetUserPasswordRequest2 == null || resetUserPasswordRequest2.isEmpty()) {
         exception.put(Constants.PASSWORD,
             ResponseMessageUtils.getFieldNotNullMessage(Constants.PASSWORD));
       }
@@ -108,6 +129,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
       exception.put(Constants.REQUEST,
           ResponseMessageUtils.getFieldNotNullMessage(Constants.REQUEST));
     }
+    return exception;
+  }
+
+  /**
+   * Validate Login Request
+   * @param loginUserRequest
+   */
+  private void validateLoginRequest(LoginUserRequest loginUserRequest) {
+    InvalidValuesException exception = getInvalidValuesException(
+        loginUserRequest != null, loginUserRequest.getEmail(), loginUserRequest.getPassword());
 
     if (!exception.getMessages().isEmpty()) {
       throw exception;

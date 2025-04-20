@@ -26,4 +26,8 @@ public class ResponseMessageUtils {
   public static ResponseMessageUtils createResponseMessageUtils() {
     return new ResponseMessageUtils();
   }
+
+  public static String getNoRecordFoundMessage(String business, String email) {
+    return business + " with email " + email + " not found";
+  }
 }
