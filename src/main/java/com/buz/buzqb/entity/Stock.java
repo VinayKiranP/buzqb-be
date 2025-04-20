@@ -1,6 +1,7 @@
 package com.buz.buzqb.entity;
 
 import com.buz.buzqb.entity.common.AuditedModel;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class Stock extends AuditedModel implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @Column(unique = true)
   private String code;
   private String modelNumber;
   private String description;
@@ -27,6 +29,7 @@ public class Stock extends AuditedModel implements Serializable {
   private Double mrp;
   private Double purchasedPrice;
   private Double sellingPrice;
+  private Double tax;
   private int status = 1;
   private Long businessId;
 }

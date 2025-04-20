@@ -14,18 +14,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "item")
-public class Item extends AuditedModel implements Serializable {
+public class Sales extends AuditedModel implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String name;
-  private String code;
-  private Double tax;
+  private String number;
   private String description;
-  private Long categoryId;
-  private Long subCategoryId;
-  private Long brandId;
+  private Long itemId;
+  private Long stockId;
+  private Double quantity;
+  private Double price;
+  private Double discount;
+  private Double tax;
+  private Double total;
   private Long businessId;
+  private int paymentType; // 1: Upi, 2: Card, 3: Cash, 4: Other
+  private int saleType; // 1: CarryIn, 2: Online, 4: Other
+  private Long customerId;
+  private Long invoiceId;
   private int status;
 }
