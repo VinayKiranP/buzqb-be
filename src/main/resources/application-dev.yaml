@@ -3,8 +3,8 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: vk
-    password: rcb
+    username: root
+    password: rcb88888
     url: jdbc:mysql://localhost:3306/buzqb
   redis:
     host: localhost
@@ -24,8 +24,8 @@ spring:
         registration:
           google:
             client-name: google
-            client-id:
-            client-secret:
+            client-id: 857689704790-k2mtbfm1gfm08ltda8pn6gr6a027k1nr.apps.googleusercontent.com
+            client-secret: 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
             scope: email, profile
 security:
   jwt:

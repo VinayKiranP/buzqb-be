@@ -14,7 +14,7 @@ public interface BusinessRepo extends JpaRepository<Business, Long> {
   Optional<Business> findByEmail(String email) throws UsernameNotFoundException;
 
 
-  @Query("SELECT b FROM Business b WHERE b.email = :email OR b.username = :username")
-  Optional<Business> findByEmailOrUsername(@Param("email") String email, @Param("username") String username);
+//  @Query("SELECT b FROM Business b WHERE b.username = :username")
+//  Optional<Business> findByEmailOrUsername(@Param("email") String email, @Param("username") String username);
 
 }

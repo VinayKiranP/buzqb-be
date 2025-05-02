@@ -31,7 +31,7 @@ public class Business implements UserDetails, Serializable {
   private String mobile;
   @Column(unique = true, length = 250, nullable = false)
   private String email;
-  @JsonIgnore
+  @Column(unique = true, length = 250, nullable = false)
   private String password;
   @JsonIgnore
   private String username;

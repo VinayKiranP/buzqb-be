@@ -99,8 +99,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     if (!exception.getMessages().isEmpty()) {
       throw exception;
     }
-    Business business = businessRepo.findByEmailOrUsername(
-        resetUserPasswordRequest.getEmail(),
+    Business business = businessRepo.findByEmail(
         resetUserPasswordRequest.getEmail()
     ).orElseThrow(() -> {
       InvalidValuesException exception1 = new InvalidValuesException();
