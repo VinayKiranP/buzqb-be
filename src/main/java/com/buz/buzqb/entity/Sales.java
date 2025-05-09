@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "item")
+@Entity(name = "sale")
 public class Sales extends AuditedModel implements Serializable {
 
   @Id

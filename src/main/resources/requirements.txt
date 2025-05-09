@@ -1,0 +1,6 @@
+Swagger URL
+http://localhost:8080/swagger-ui/index.html
+
+User
+vk@vk.com
+rcb

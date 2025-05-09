@@ -5,9 +5,12 @@ import com.buz.buzqb.common.Constants;
 import com.buz.buzqb.dto.auth.LoginResponse;
 import com.buz.buzqb.dto.auth.LoginUserRequest;
 import com.buz.buzqb.dto.auth.RegisterUserRequest;
+import com.buz.buzqb.dto.auth.ResetUserPasswordRequest;
 import com.buz.buzqb.entity.Business;
 import com.buz.buzqb.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,5 +45,11 @@ public class AuthenticationController {
     loginResponse.setToken(jwtToken);
     loginResponse.setExpiresIn(jwtService.getExpirationTime());
     return ResponseEntity.ok(loginResponse);
+  }
+
+  @PostMapping(Constants.RESET_PASSWORD_URI)
+  public ResponseEntity<Business> resetPassword(@RequestBody ResetUserPasswordRequest resetUserPasswordRequest) {
+    Business business = authenticationService.resetPassword(resetUserPasswordRequest);
+    return ResponseEntity.ok(business);
   }
 }
